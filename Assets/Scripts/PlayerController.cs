@@ -17,82 +17,32 @@ public class PlayerController : MonoBehaviour
     private int attackStack = -1;
 
     public float moveSpeed = 5f; // 이동 속도
-    public float rotationSpeed = 5f; // 회전 속도
-
-    public float minMouseDistance = 2f;
+    private Vector3 movement = Vector3.zero;
 
     void Update()
     {
-        RotateToMouse();
         MoveCharacter();
     }
 
-    // 캐릭터를 마우스 위치를 따라 회전
-    void RotateToMouse()
-    {
-        // 마우스 위치를 가져옴
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            Vector3 targetPosition = hit.point;
-
-            // 캐릭터와 마우스 간의 거리 계산
-            float distance = Vector3.Distance(transform.position, targetPosition);
-
-            // 최소 거리 제한
-            if (distance > minMouseDistance)
-            {
-                targetPosition.y = transform.position.y; // 높이 고정
-                Vector3 direction = (targetPosition - transform.position).normalized;
-
-                // 목표 회전 계산
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-
-                // 현재 회전과 목표 회전을 오일러 각도로 변환
-                float currentYRotation = NormalizeAngle(transform.eulerAngles.y);
-                float targetYRotation = NormalizeAngle(targetRotation.eulerAngles.y);
-
-                // 회전 각도 차이 계산
-                float angleDifference = Mathf.DeltaAngle(currentYRotation, targetYRotation);
-
-                // 제한된 목표 회전을 다시 Quaternion으로 변환
-                Quaternion clampedRotation = Quaternion.Euler(0, angleDifference, 0);
-
-                // 부드러운 회전 적용
-                transform.rotation = Quaternion.Lerp(transform.rotation, clampedRotation, Time.deltaTime * rotationSpeed);
-            }
-        }
-    }
-
-    // WASD 키 입력에 따라 이동
     void MoveCharacter()
     {
-        float horizontal = Input.GetAxis("Horizontal"); // A, D 또는 좌우 화살표
-        float vertical = Input.GetAxis("Vertical"); // W, S 또는 위아래 화살표
+        float vertical = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxis("Horizontal");
 
-        Vector3 moveDirection = new Vector3(horizontal, 0, vertical).normalized;
+        float speed = Mathf.Clamp01(new Vector2(horizontal, vertical).magnitude); // 크기(0~1)
+        animator.SetFloat("MoveSpeed", speed);
+        animator.SetBool("Idle", speed <= 0);
 
-        if (moveDirection.magnitude > 0.1f)
+        // 캐릭터 이동 처리
+        movement = new Vector3(horizontal, 0, vertical).normalized * moveSpeed * Time.deltaTime;
+        transform.Translate(movement, Space.World);
+
+        // 캐릭터 회전 처리 (방향 전환)
+        if (movement.magnitude > 0)
         {
-            animator.ResetTrigger("Idle");
-            animator.SetTrigger("Walk");
-
-            // 카메라의 정면 방향 기준으로 이동 방향 설정
-            Vector3 move = transform.forward * moveDirection.z + transform.right * moveDirection.x;
-            transform.position += move * moveSpeed * Time.deltaTime;
+            Quaternion targetRotation = Quaternion.LookRotation(movement);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
         }
-        else
-        {
-            animator.ResetTrigger("Walk");
-            animator.SetTrigger("Idle");
-        }
-    }
-
-    float NormalizeAngle(float angle)
-    {
-        while (angle < 0) angle += 360f;
-        while (angle >= 360f) angle -= 360f;
-        return angle;
     }
 
     private void Attack()
