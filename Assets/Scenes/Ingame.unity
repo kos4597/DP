@@ -858,9 +858,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1484952987}
+  distance: 3
+  targetOffsetY: 3
+  targetOffsetZ: -2.5
+  currentZoom: 0
+  currentRotation: 0
 --- !u!4 &1484952987 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8597385555980243904, guid: 5ee246edeb79f3e499039d20e84b61be, type: 3}
+  m_PrefabInstance: {fileID: 1552526418}
+  m_PrefabAsset: {fileID: 0}
+--- !u!143 &1484952988 stripped
+CharacterController:
+  m_CorrespondingSourceObject: {fileID: 3366018229685197978, guid: 5ee246edeb79f3e499039d20e84b61be, type: 3}
   m_PrefabInstance: {fileID: 1552526418}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1552526418
@@ -872,17 +882,33 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3366018229685197978, guid: 5ee246edeb79f3e499039d20e84b61be, type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3366018229685197978, guid: 5ee246edeb79f3e499039d20e84b61be, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3366018229685197978, guid: 5ee246edeb79f3e499039d20e84b61be, type: 3}
+      propertyPath: m_Center.y
+      value: 0.92
       objectReference: {fileID: 0}
     - target: {fileID: 3861147020150932164, guid: 5ee246edeb79f3e499039d20e84b61be, type: 3}
       propertyPath: m_Name
       value: Character
       objectReference: {fileID: 0}
     - target: {fileID: 5067802210276959490, guid: 5ee246edeb79f3e499039d20e84b61be, type: 3}
+      propertyPath: _gravity
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067802210276959490, guid: 5ee246edeb79f3e499039d20e84b61be, type: 3}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1303953927}
+    - target: {fileID: 5067802210276959490, guid: 5ee246edeb79f3e499039d20e84b61be, type: 3}
+      propertyPath: characterController
+      value: 
+      objectReference: {fileID: 1484952988}
     - target: {fileID: 7376970125788544389, guid: 5ee246edeb79f3e499039d20e84b61be, type: 3}
       propertyPath: m_Enabled
       value: 1

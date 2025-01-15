@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CharacterCamera : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class CharacterCamera : MonoBehaviour
     [SerializeField]
     private float currentRotation;
 
+    private float _xRotation;
+    private float _yRotation;
+
     void Start()
     {
         currentZoom = distance;
@@ -33,15 +37,28 @@ public class CharacterCamera : MonoBehaviour
         // 줌 (마우스 휠)
         currentZoom -= Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
         currentZoom = Mathf.Clamp(currentZoom, 2.0f, 15.0f);  // 줌 제한
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
 
+        _yRotation += mouseX;
+        _xRotation -= mouseY;
+
+        // limits camera rotation
+        _xRotation = Mathf.Clamp(_xRotation, -60f, 60f);
+        _yRotation = Mathf.Clamp(_yRotation, -90f, 90f);
+
+        Quaternion rotation = Quaternion.Euler(_xRotation, _yRotation, 0);
+
+        // rotates camera on the y- and x-axis
+
+        transform.rotation = rotation;
+        
         // 마우스 오른쪽 버튼 회전
-        if (Input.GetMouseButton(1))
-        {
-            currentRotation += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
-        }
+
+            //currentRotation += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
+        
 
         // 카메라 위치 업데이트
-        Quaternion rotation = Quaternion.Euler(0, currentRotation, 0);
         Vector3 position = target.position - (rotation * Vector3.forward * currentZoom);
         position.y = position.y + targetOffsetY;
         position.z = position.z + targetOffsetZ;

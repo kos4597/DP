@@ -7,16 +7,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Animator animator = null;
     [SerializeField]
-    private CharacterController controller = null;
+    private CharacterController characterController = null;
 
     [SerializeField]
-    private float walkSpeed = 5f;
+    private float walkSpeed = 4f;
     [SerializeField]
-    private float runSpeed = 10f;
+    private float runSpeed = 4f;
 
     private int attackStack = -1;
 
-    public float moveSpeed = 5f; // 이동 속도
     private Vector3 movement = Vector3.zero;
 
     void Update()
@@ -34,8 +33,15 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Idle", speed <= 0);
 
         // 캐릭터 이동 처리
-        movement = new Vector3(horizontal, 0, vertical).normalized * moveSpeed * Time.deltaTime;
-        transform.Translate(movement, Space.World);
+        movement = new Vector3(horizontal, 0, vertical).normalized * Time.deltaTime;
+        characterController.Move(movement * walkSpeed * Time.deltaTime);
+
+        //transform.Translate(movement, Space.World);
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            characterController.Move(movement * Time.deltaTime * runSpeed);
+        }
 
         // 캐릭터 회전 처리 (방향 전환)
         if (movement.magnitude > 0)
