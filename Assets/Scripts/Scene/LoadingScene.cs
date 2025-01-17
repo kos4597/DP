@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class LoadingScene : SceneBase
 
     private void Awake()
     {
-        InitUI();
+       
     }
 
     private void Start()
@@ -26,33 +27,14 @@ public class LoadingScene : SceneBase
 
     public override void EnterScene()
     {
-        if (changeCor != null)
-        {
-            StopCoroutine(changeCor);
-            changeCor = null;
-        }
-
-        changeCor = StartCoroutine(ChangeSceneAfterLoadingCor());
+        this.sceneState = SceneState.Enter;
+        InitUI();
     }
 
-    private void InitUI()
+    public override async UniTask LoadingSceneAsync()
     {
-        progressBar.fillAmount = 0f;
-        progressText.text = "0f";
-    }
-
-    public override void ExitScene() 
-    {
-        if (changeCor != null)
-        {
-            StopCoroutine(changeCor);
-            changeCor = null;
-        }
-    }
-
-    public IEnumerator ChangeSceneAfterLoadingCor()
-    {
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync($"{SceneChanger.Instance.NextSceneType}");
+        this.sceneState = SceneState.Loading;
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync($"{SceneChanger.Instance.CurrentScene.sceneType}");
 
         float timer = 0.0f;
         asyncOperation.allowSceneActivation = false;
@@ -61,7 +43,8 @@ public class LoadingScene : SceneBase
         {
             Debug.Log($"Scene Load AfterLoading : + {asyncOperation.progress * 100}%");
 
-            yield return null;
+            await UniTask.NextFrame();
+
             timer += Time.deltaTime;
             if (asyncOperation.progress < 0.9f)
             {
@@ -78,26 +61,30 @@ public class LoadingScene : SceneBase
                 if (progressBar.fillAmount == 1.0f)
                 {
                     progressText.text = $"100%";
-                    yield return new WaitForSeconds(2f);
+                    await UniTask.Delay(2000);
                     asyncOperation.allowSceneActivation = true;
-                    yield break;
+                    break;
                 }
             }
         }
 
-        SceneChanger.Instance.NowScene = SceneChanger.Instance.NextSceneType switch
-        {
-            SceneType.Logo => new LogoScene(),
-            SceneType.Intro => new IntroScene(),
-            SceneType.Lobby => new LobbyScene(),
-            SceneType.Ingame => new IntroScene(),
-            _ => null
-        };
+        SceneChanger.Instance.ChangeScene(SceneChanger.Instance.CurrentScene.sceneType, false);
     }
 
-    private void OnDestroy()
+    public override void UpdateScene()
     {
-        ExitScene();
+        this.sceneState = SceneState.Update;
     }
 
+    public override async UniTask ExitScene()
+    {
+        await base.ExitScene();
+    }
+
+
+    private void InitUI()
+    {
+        progressBar.fillAmount = 0f;
+        progressText.text = "0f";
+    }
 }

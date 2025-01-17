@@ -1,32 +1,39 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LobbyScene : SceneBase
 {
-    [SerializeField]
-    private Button btnBattle = null;
-
-    private void Awake()
-    {
-        btnBattle.onClick.AddListener(OnClickGoBattle);
-    }
-    private void Start()
-    {
-        EnterScene();
-    }
-
     public override void EnterScene()
     {
+        this.sceneState = SceneChanger.SceneState.Enter;
         Debug.Log("Lobby Setting");
     }
 
-    public override void ExitScene()
+    public override async UniTask LoadingSceneAsync()
     {
+        this.sceneState = SceneChanger.SceneState.Loading;
 
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync($"{this.sceneType}");
+
+        while (asyncOperation.isDone == false)
+        {
+            Debug.Log($"Logo Scene Load : + {asyncOperation.progress * 100}%");
+
+            await UniTask.NextFrame();
+        }
+
+        this.sceneState = SceneChanger.SceneState.Update;
     }
 
-    private void OnClickGoBattle()
+    public override void UpdateScene()
     {
-        SceneChanger.Instance.ChangeScene(SceneChanger.SceneType.Ingame, true);
+        SceneChanger.Instance.ExitScene();
+    }
+
+    public override async UniTask ExitScene()
+    {
+        await base.ExitScene();
     }
 }

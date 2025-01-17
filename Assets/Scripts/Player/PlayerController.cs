@@ -62,4 +62,9 @@ public class PlayerController : MonoBehaviour
             attackStack = -1;
         }
     }
+
+    public void SetPlayerCamera()
+    {
+        mainCamera = Camera.main;
+    }
 }

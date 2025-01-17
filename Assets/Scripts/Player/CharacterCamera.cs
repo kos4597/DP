@@ -67,4 +67,9 @@ public class CharacterCamera : MonoBehaviour
         transform.LookAt(target);
     }
 
+    public void SetTarget(Transform _target)
+    {
+        target = _target;
+    }
+
 }
