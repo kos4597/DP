@@ -249,7 +249,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 806249951}
-  - component: {fileID: 806249950}
+  - component: {fileID: 806249952}
   m_Layer: 0
   m_Name: LobbyScene
   m_TagString: Untagged
@@ -257,19 +257,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &806249950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 806249949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d02b89640961d546b7c4927b693214e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  btnBattle: {fileID: 460067363}
 --- !u!4 &806249951
 Transform:
   m_ObjectHideFlags: 0
@@ -285,6 +272,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &806249952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806249949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32522c8ff2d824a49a316d62bfde0e07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btnBattle: {fileID: 460067363}
 --- !u!1 &945716614
 GameObject:
   m_ObjectHideFlags: 0

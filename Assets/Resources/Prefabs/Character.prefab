@@ -2564,8 +2564,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73b41ead8fed3784799da00fb5d720a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 0}
   animator: {fileID: 2642684088989824222}
-  controller: {fileID: 3366018229685197978}
+  characterController: {fileID: 3366018229685197978}
   walkSpeed: 5
   runSpeed: 10
 --- !u!114 &7376970125788544389
@@ -2580,7 +2581,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84f3fa296a7092f44a85cb1126408952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
 --- !u!143 &3366018229685197978
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2605,7 +2605,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0, y: 0.92, z: 0}
 --- !u!1 &3954860224017866638
 GameObject:
   m_ObjectHideFlags: 0

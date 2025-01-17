@@ -1,11 +1,8 @@
 using Cysharp.Threading.Tasks;
-using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
-public class LogoScene : SceneBase
+public class IngameScene : SceneBase
 {
     public override void EnterScene()
     {
@@ -15,7 +12,6 @@ public class LogoScene : SceneBase
     public override async UniTask LoadingSceneAsync()
     {
         this.sceneState = SceneChanger.SceneState.Loading;
-
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync($"{this.sceneType}");
 
         while (asyncOperation.isDone == false)
@@ -24,8 +20,6 @@ public class LogoScene : SceneBase
 
             await UniTask.NextFrame();
         }
-
-        await UniTask.Delay(4000);
 
         this.sceneState = SceneChanger.SceneState.Update;
     }
@@ -37,15 +31,6 @@ public class LogoScene : SceneBase
 
     public override async UniTask ExitScene()
     {
-        string sceneName = SceneChanger.SceneType.Intro.ToString();
-        AsyncOperation op = SceneManager.LoadSceneAsync($"{sceneName}");
-        while (op.isDone == false)
-        {
-            Debug.Log($"Intro Scene Load : + {op.progress * 100}%");
-
-            await UniTask.NextFrame();
-        }
-
         await base.ExitScene();
     }
 }

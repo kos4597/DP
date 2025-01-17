@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using TMPro;
 using UnityEditor.ShaderGraph.Internal;
@@ -7,8 +9,6 @@ using UnityEngine.UI;
 
 public class SceneChanger : MonoBehaviour
 {
-    public static SceneChanger Instance { get; private set; }
-
     public enum SceneType
     {
         None,
@@ -19,60 +19,69 @@ public class SceneChanger : MonoBehaviour
         Loading,
     }
 
-    public SceneType NextSceneType { get; private set; }
+    public enum SceneState
+    {
+        Enter,
+        Loading,
+        Update,
+        Exit,
+    }
 
-    public SceneBase NowScene { get; set; }
 
-    private Coroutine sceneChangeCor = null;
-
+    public static SceneChanger Instance { get; private set; }
+    [NonSerialized]
+    public SceneBase PrevScene;
+    [NonSerialized]
+    public SceneBase CurrentScene;
+    
     private void Awake()
     {
         DontDestroyOnLoad(this);
         Instance = this;
     }
 
-    public void ChangeScene(SceneType type = SceneType.None, bool useLoading = true)
+    public async UniTask ChangeScene(SceneType type = SceneType.None, bool useLoading = true)
     {
-        if (NextSceneType == type)
-            return;
-
-        NextSceneType = type;
-
-        if (useLoading)
+        if(CurrentScene != null)
         {
-            SceneManager.LoadScene($"{SceneType.Loading}");
-        }
-        else
-        {
-            if (sceneChangeCor != null)
+            if(CurrentScene.sceneType == type)
             {
-                StopCoroutine(sceneChangeCor);
-                sceneChangeCor = null;
+                return;
             }
-
-            sceneChangeCor = StartCoroutine(ChangeCor());
-        }
-    }
-
-    private IEnumerator ChangeCor()
-    {
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync($"{NextSceneType}");
-
-        while (asyncOperation.isDone == false)
-        {
-            Debug.Log($"Scene Load : + {asyncOperation.progress * 100}%");
-
-            yield return null;
         }
 
-        NowScene = NextSceneType switch
+        PrevScene = CurrentScene;
+        CurrentScene = type switch
         {
             SceneType.Logo => new LogoScene(),
             SceneType.Intro => new IntroScene(),
             SceneType.Lobby => new LobbyScene(),
-            SceneType.Ingame => new IntroScene(),
+            SceneType.Ingame => new IngameScene(),
             _ => null
         };
+
+        CurrentScene.sceneType = type;
+
+        CurrentScene.EnterScene();
+
+        await CurrentScene.LoadingSceneAsync();
+    }
+
+    public void ExitScene()
+    {
+        if(CurrentScene != null)
+        {
+            CurrentScene.ExitScene();
+        }
+    }
+
+    private void Update()
+    {
+        if (CurrentScene == null)
+            return;
+
+        if (CurrentScene.sceneState == SceneState.Update)
+            CurrentScene.UpdateScene();
     }
 }
 
