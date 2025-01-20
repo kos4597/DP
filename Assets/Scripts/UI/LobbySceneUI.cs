@@ -13,7 +13,6 @@ public class LobbySceneUI : MonoBehaviour
 
     private void OnClickGoBattle()
     {
-        SceneChanger.Instance.ExitScene();
         SceneChanger.Instance.ChangeScene(SceneChanger.SceneType.Ingame, true).Forget();
     }
 }

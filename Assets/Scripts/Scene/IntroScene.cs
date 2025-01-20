@@ -9,12 +9,12 @@ public class IntroScene : SceneBase
 {
     public override void EnterScene()
     {
-        this.sceneState = SceneChanger.SceneState.Enter;
+        ChangeSceneState(SceneChanger.SceneState.Enter);
     }
 
     public override async UniTask LoadingSceneAsync()
     {
-        this.sceneState = SceneChanger.SceneState.Loading;
+        ChangeSceneState(SceneChanger.SceneState.Loading);
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync($"{this.sceneType}");
 
         while (asyncOperation.isDone == false)
@@ -24,16 +24,16 @@ public class IntroScene : SceneBase
             await UniTask.NextFrame();
         }
 
-        this.sceneState = SceneChanger.SceneState.Update;
+        ChangeSceneState(SceneChanger.SceneState.Update);
     }
 
     public override void UpdateScene()
     {
-        SceneChanger.Instance.ExitScene();
+        ChangeSceneState(SceneChanger.SceneState.Exit);
     }
 
     public override void ExitScene()
     {
-        base.ExitScene();
+
     }
 }

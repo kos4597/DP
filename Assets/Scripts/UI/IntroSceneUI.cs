@@ -55,7 +55,8 @@ public class IntroSceneUI : MonoBehaviour
     }
     private void OnClickTouchToStart()
     {
-        SceneChanger.Instance.ExitScene();
-        SceneChanger.Instance.ChangeScene(SceneChanger.SceneType.Lobby, true).Forget();
+        SceneChanger.SceneType next = SceneChanger.SceneType.Lobby;
+
+        SceneChanger.Instance.ChangeScene(next, true).Forget();
     }
 }

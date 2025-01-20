@@ -10,9 +10,15 @@ public class SceneBase
     public virtual void EnterScene() { }
     public virtual async UniTask LoadingSceneAsync() { }
     public virtual void UpdateScene() { }
-    public virtual void ExitScene() 
+
+    /// <summary>
+    /// 다른씬으로 이동시 지워줄 것들 처리.
+    /// </summary>
+    public virtual void ExitScene() {}
+
+    public virtual void ChangeSceneState(SceneChanger.SceneState state)
     {
-        this.sceneState = SceneChanger.SceneState.Exit;
+        this.sceneState = state;
     }
 
 }

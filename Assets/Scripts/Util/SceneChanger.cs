@@ -21,6 +21,7 @@ public class SceneChanger : MonoBehaviour
 
     public enum SceneState
     {
+        None,
         Enter,
         Loading,
         Update,
@@ -57,22 +58,12 @@ public class SceneChanger : MonoBehaviour
             SceneType.Intro => new IntroScene(),
             SceneType.Lobby => new LobbyScene(),
             SceneType.Ingame => new IngameScene(),
+            SceneType.Loading => new LoadingScene(),
             _ => null
         };
 
         CurrentScene.sceneType = type;
-
-        CurrentScene.EnterScene();
-
-        await CurrentScene.LoadingSceneAsync();
-    }
-
-    public void ExitScene()
-    {
-        if(CurrentScene != null)
-        {
-            CurrentScene.ExitScene();
-        }
+        CurrentScene.sceneState = SceneState.None;
     }
 
     private void Update()
@@ -80,21 +71,37 @@ public class SceneChanger : MonoBehaviour
         if (CurrentScene == null)
             return;
 
-        if (CurrentScene.sceneState == SceneState.Update)
-            CurrentScene.UpdateScene();
+        switch(CurrentScene.sceneState)
+        {
+            case SceneState.None:
+                {
+                    CurrentScene.EnterScene();
+                }
+                break;
+            case SceneState.Enter:
+                {
+                    CurrentScene.LoadingSceneAsync().Forget();
+                }
+                break;
+            case SceneState.Loading:
+                {
+                    //로딩중일땐 아무것도 안함.
+                }
+                break;
+            case SceneState.Update:
+                {
+                    CurrentScene.UpdateScene();
+                }
+                break;
+            case SceneState.Exit:
+                {
+                    // 다음씬 이동시 Exit.
+                    CurrentScene.ExitScene();
+                }
+                break;
+        }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 //namespace IronJade
 //{

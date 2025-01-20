@@ -6,7 +6,7 @@ public class IngameScene : SceneBase
 {
     public override void EnterScene()
     {
-        this.sceneState = SceneChanger.SceneState.Enter;
+        ChangeSceneState(SceneChanger.SceneState.Enter);
     }
 
     public override async UniTask LoadingSceneAsync()
@@ -21,16 +21,16 @@ public class IngameScene : SceneBase
             await UniTask.NextFrame();
         }
 
-        this.sceneState = SceneChanger.SceneState.Update;
+        ChangeSceneState(SceneChanger.SceneState.Update);
     }
 
     public override void UpdateScene()
     {
-        SceneChanger.Instance.ExitScene();
+        ChangeSceneState(SceneChanger.SceneState.Exit);
     }
 
     public override void ExitScene()
     {
-        base.ExitScene();
+        
     }
 }
