@@ -21,7 +21,7 @@ public class IntroSceneUI : MonoBehaviour
 
     private void Start()
     {
-        LoadData();
+        LoadData().Forget();
     }
 
     private void InitUI()
@@ -56,6 +56,6 @@ public class IntroSceneUI : MonoBehaviour
     private void OnClickTouchToStart()
     {
         SceneChanger.Instance.ExitScene();
-        SceneChanger.Instance.ChangeScene(SceneChanger.SceneType.Lobby, true);
+        SceneChanger.Instance.ChangeScene(SceneChanger.SceneType.Lobby, true).Forget();
     }
 }

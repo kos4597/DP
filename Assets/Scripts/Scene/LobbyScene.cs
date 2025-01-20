@@ -32,8 +32,8 @@ public class LobbyScene : SceneBase
         SceneChanger.Instance.ExitScene();
     }
 
-    public override async UniTask ExitScene()
+    public override void ExitScene()
     {
-        await base.ExitScene();
+        base.ExitScene();
     }
 }

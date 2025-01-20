@@ -10,7 +10,7 @@ public class SceneBase
     public virtual void EnterScene() { }
     public virtual async UniTask LoadingSceneAsync() { }
     public virtual void UpdateScene() { }
-    public virtual async UniTask ExitScene() 
+    public virtual void ExitScene() 
     {
         this.sceneState = SceneChanger.SceneState.Exit;
     }

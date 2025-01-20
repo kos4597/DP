@@ -15,16 +15,6 @@ public class LoadingScene : SceneBase
 
     private Coroutine changeCor = null;
 
-    private void Awake()
-    {
-       
-    }
-
-    private void Start()
-    {
-        EnterScene();
-    }
-
     public override void EnterScene()
     {
         this.sceneState = SceneState.Enter;
@@ -68,17 +58,18 @@ public class LoadingScene : SceneBase
             }
         }
 
-        SceneChanger.Instance.ChangeScene(SceneChanger.Instance.CurrentScene.sceneType, false);
+        this.sceneState = SceneState.Update;
     }
 
     public override void UpdateScene()
     {
-        this.sceneState = SceneState.Update;
+        SceneChanger.Instance.ExitScene();
     }
 
-    public override async UniTask ExitScene()
+    public override void ExitScene()
     {
-        await base.ExitScene();
+        SceneChanger.Instance.ChangeScene(SceneChanger.Instance.CurrentScene.sceneType, false).Forget();
+        base.ExitScene();
     }
 
 

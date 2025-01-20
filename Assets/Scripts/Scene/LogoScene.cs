@@ -35,17 +35,10 @@ public class LogoScene : SceneBase
         SceneChanger.Instance.ExitScene();
     }
 
-    public override async UniTask ExitScene()
+    public override void ExitScene()
     {
-        string sceneName = SceneChanger.SceneType.Intro.ToString();
-        AsyncOperation op = SceneManager.LoadSceneAsync($"{sceneName}");
-        while (op.isDone == false)
-        {
-            Debug.Log($"Intro Scene Load : + {op.progress * 100}%");
+        SceneChanger.SceneType next = SceneChanger.SceneType.Intro;
 
-            await UniTask.NextFrame();
-        }
-
-        await base.ExitScene();
+        SceneChanger.Instance.ChangeScene(next, false).Forget();
     }
 }
