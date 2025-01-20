@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,6 @@ public class LobbySceneUI : MonoBehaviour
     private void OnClickGoBattle()
     {
         SceneChanger.Instance.ExitScene();
-        SceneChanger.Instance.ChangeScene(SceneChanger.SceneType.Ingame, true);
+        SceneChanger.Instance.ChangeScene(SceneChanger.SceneType.Ingame, true).Forget();
     }
 }
