@@ -22,6 +22,9 @@ public class CharacterCamera : MonoBehaviour
     private float _xRotation;
     private float _yRotation;
 
+    private Quaternion rotation = Quaternion.identity;
+
+
     void Start()
     {
         currentZoom = distance;
@@ -37,26 +40,18 @@ public class CharacterCamera : MonoBehaviour
         // 줌 (마우스 휠)
         currentZoom -= Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
         currentZoom = Mathf.Clamp(currentZoom, 2.0f, 15.0f);  // 줌 제한
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
 
-        _yRotation += mouseX;
-        _xRotation -= mouseY;
+        if(Input.GetMouseButton(1))
+        {
+            float mouseX = Input.GetAxis("Mouse X");
+            float mouseY = Input.GetAxis("Mouse Y");
 
-        // limits camera rotation
-        _xRotation = Mathf.Clamp(_xRotation, -60f, 60f);
-        _yRotation = Mathf.Clamp(_yRotation, -90f, 90f);
+            _yRotation += mouseX;
+            _xRotation -= mouseY;
 
-        Quaternion rotation = Quaternion.Euler(_xRotation, _yRotation, 0);
-
-        // rotates camera on the y- and x-axis
-
-        transform.rotation = rotation;
-        
-        // 마우스 오른쪽 버튼 회전
-
-            //currentRotation += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
-        
+            _xRotation = Mathf.Clamp(_xRotation, -20f + currentZoom, 60f - currentZoom);
+            rotation = Quaternion.Euler(_xRotation, _yRotation, 0);
+        }
 
         // 카메라 위치 업데이트
         Vector3 position = target.position - (rotation * Vector3.forward * currentZoom);
@@ -70,6 +65,11 @@ public class CharacterCamera : MonoBehaviour
     public void SetTarget(Transform _target)
     {
         target = _target;
+    }
+
+    private void CalcCameraRot()
+    {
+
     }
 
 }
