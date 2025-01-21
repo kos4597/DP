@@ -2540,7 +2540,7 @@ Animator:
   m_GameObject: {fileID: 3861147020150932164}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 2255221d850daf642981c1a4eedf85a1, type: 3}
-  m_Controller: {fileID: 9100000, guid: ef6403663453e6a4cb106814a81e72b4, type: 2}
+  m_Controller: {fileID: 9100000, guid: bdc4d38521f761c40afa8729d34fb709, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2567,11 +2567,10 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   animator: {fileID: 2642684088989824222}
   characterController: {fileID: 3366018229685197978}
-  walkSpeed: 5
-  runSpeed: 10
-  gravity: -9.81
-  raycastDistance: 10
-  heightOffset: 0.5
+  walkSpeed: 2
+  runSpeed: 4
+  jumpForce: 2
+  turnSpeed: 10
 --- !u!114 &7376970125788544389
 MonoBehaviour:
   m_ObjectHideFlags: 0
