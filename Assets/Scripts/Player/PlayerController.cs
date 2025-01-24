@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private CharacterController characterController = null;
 
+
+    // 이런 정보들은 테이블로 빼거나 스크립터블오브젝트로 관리
+
     private float walkSpeed = 2f; // 걷기 속도
     private float runSpeed = 4f; // 달리기 속도
     private float turnSpeed = 10f;  // 회전 속도
@@ -37,6 +40,8 @@ public class PlayerController : MonoBehaviour
         MoveCharacter();
     }
 
+    // 전반적으로 예외처리 코드가 부족한 듯
+
     void MoveCharacter()
     {
         float vertical = Input.GetAxis("Vertical");
@@ -50,6 +55,9 @@ public class PlayerController : MonoBehaviour
         {
             speed = 0;
         }
+
+        // 이런 키값들은 StringDefine class를 만들어서 readonly로 Hash를 미리 얻은 후 String 대신 Hash로 호출할 것
+        // animator.SetBool(RunHash(int Hash 값), false);
 
         animator.SetBool("Run", false);
         animator.SetFloat("MoveSpeed", speed);
@@ -76,7 +84,7 @@ public class PlayerController : MonoBehaviour
 
         if (IsGrounded(out float groundHeight))
         {
-            if (verticalVelocity < 0) 
+            if (verticalVelocity < 0)
                 verticalVelocity = 0f;
 
             if (Input.GetKeyDown(KeyCode.Space))
