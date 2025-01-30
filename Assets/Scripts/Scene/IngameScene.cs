@@ -31,6 +31,6 @@ public class IngameScene : SceneBase
 
     public override void ExitScene()
     {
-        
+        IngameManager.Instance = null;
     }
 }

@@ -1872,9 +1872,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d92547800ba4ade40b9a001c20951d77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 3861147020150932164, guid: 5ee246edeb79f3e499039d20e84b61be, type: 3}
-  spawnPoint: {fileID: 687349083}
   characterCamera: {fileID: 1303953931}
+  player: {fileID: 3861147020150932164, guid: 5ee246edeb79f3e499039d20e84b61be, type: 3}
+  playerSpawnPoint: {fileID: 687349083}
+  monster: {fileID: 0}
+  monsterSpawnPoints: []
+  monsterPool: []
 --- !u!4 &2146556982
 Transform:
   m_ObjectHideFlags: 0

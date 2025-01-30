@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
@@ -18,10 +19,8 @@ public class PlayerController : MonoBehaviour
 
     private float verticalVelocity = 0f; // 수직 속도 저장
     private float gravity = -9.81f; // 중력
-    private float raycastDistance = 0.2f; // Raycast 거리
+    private float raycastDistance = 0.5f; // Raycast 거리
     private float heightOffset = 0.1f; // 캐릭터와 지형 간 여유 높이
-
-    private int attackStack = -1;
 
     private LayerMask groundLayer;
 
@@ -39,6 +38,13 @@ public class PlayerController : MonoBehaviour
 
     void MoveCharacter()
     {
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack1") ||
+           animator.GetCurrentAnimatorStateInfo(0).IsName("Attack2") ||
+           animator.GetCurrentAnimatorStateInfo(0).IsName("Attack3"))
+        {
+            return;
+        }
+
         float vertical = Input.GetAxis("Vertical");
         float horizontal = Input.GetAxis("Horizontal");
 
@@ -113,25 +119,12 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(rayOrigin, Vector3.down, out hit, raycastDistance, groundLayer))
         {
-            Debug.Log($"Hit: {hit.collider.name}");
             groundHeight = hit.point.y;
             return true;
         }
 
         groundHeight = 0f;
         return false;
-    }
-
-    private void Attack()
-    {
-        animator.SetTrigger("Attack");
-        attackStack++;
-        animator.SetInteger("AttackStack", attackStack);
-
-        if (attackStack >= 2)
-        {
-            attackStack = -1;
-        }
     }
 
     public void SetPlayerCamera()
