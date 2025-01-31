@@ -2,15 +2,8 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Hit(int damage)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Debug.Log("Hit" + damage);
     }
 }

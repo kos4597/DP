@@ -2,7 +2,6 @@ using Cysharp.Threading.Tasks;
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class AttackController : MonoBehaviour
 {
@@ -11,10 +10,11 @@ public class AttackController : MonoBehaviour
 
     private Transform targetTr;
 
+    [SerializeField]
+    private Weapon weapon;
+
     private float angle = 30f;
     private float radius = 3f;
-
-    private bool isCollision = false;
 
     private int attackStack = -1;
     private float lastAttackTime = 0f;
@@ -46,5 +46,15 @@ public class AttackController : MonoBehaviour
         {
             attackStack = -1;
         }
+    }
+
+    public void OnEnableWeaponCollision()
+    {
+        weapon.GetComponent<SphereCollider>().enabled = true;
+    }
+
+    public void OnDisableWeaponCollision()
+    {
+        weapon.GetComponent<SphereCollider>().enabled = false;
     }
 }

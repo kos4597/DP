@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class IngameManager : MonoBehaviour
 {
@@ -12,7 +13,9 @@ public class IngameManager : MonoBehaviour
     [SerializeField]
     private GameObject monster = null;
     [SerializeField]
-    private Transform[] monsterSpawnPoints = null;
+    private Transform monsterSpawnPoint = null;
+
+    [NonSerialized]
     public List<Monster> monsterPool = new List<Monster>();
 
     public static IngameManager Instance;
@@ -25,6 +28,7 @@ public class IngameManager : MonoBehaviour
     private void Start()
     {
         SpawnPlayer();
+        SpawnaMonster();
     }
 
     private void SpawnPlayer()
@@ -36,7 +40,7 @@ public class IngameManager : MonoBehaviour
 
     private void SpawnaMonster()
     {
-
+        Monster m = Instantiate(monster, monsterSpawnPoint).GetComponent<Monster>();
     }
 
     private void SetCameraTarget(Transform tr)
