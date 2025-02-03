@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,7 @@ public class IntroSceneUI : MonoBehaviour
     [SerializeField]
     private Button btnTouchToPlay = null;
 
+    private CancellationTokenSource cancelToken = new CancellationTokenSource();
     private void Awake()
     {
         InitUI();
@@ -21,6 +23,7 @@ public class IntroSceneUI : MonoBehaviour
 
     private void Start()
     {
+        cancelToken = new CancellationTokenSource();
         LoadData().Forget();
     }
 
@@ -40,25 +43,21 @@ public class IntroSceneUI : MonoBehaviour
 
     private async UniTask LoadData()
     {
-        int count = 0;
-
-        // for문으로 해도 되는 로직을 while로해서 가독성만 떨어짐
-        while (count < TableManager.Instance.tableList.Count)
+        for(int i = 0; i < TableManager.Instance.tableList.Count; i++)
         {
-            TableManager.Instance.tableList[count].Load();
+            TableManager.Instance.tableList[i].Load();
 
-            loadStateText.text = $"{TableManager.Instance.tableList[count].tableKey} Loading...";
-            loadStateCount.text = $"{count + 1}/{TableManager.Instance.tableList.Count}";
-            progressBar.fillAmount = (float)count + 1 / TableManager.Instance.tableList.Count;
+            loadStateText.text = $"{TableManager.Instance.tableList[i].tableKey} Loading...";
+            loadStateCount.text = $"{i + 1}/{TableManager.Instance.tableList.Count}";
+            progressBar.fillAmount = (float)i + 1 / TableManager.Instance.tableList.Count;
 
-            Debug.Log($"{count + 1} / {TableManager.Instance.tableList.Count} / {TableManager.Instance.tableList[count].tableKey}");
+            Debug.Log($"{i + 1} / {TableManager.Instance.tableList.Count} / {TableManager.Instance.tableList[i].tableKey}");
 
             // UniTask는 반드시 토큰과 함께 사용하고 Suppresscancellationthrow를 붙여서 쓰로우 발생 시 로직을 빠져나가는 보호 코드도 꼭 넣을 것
             // if( await UniTask.NextFrame(토큰).Suppresscancellationthrow()) return; << 예외가 발생하면 로직을 빠져나가야 함
             // await 중에 IntroSceneUI가 null이 되거나 하면 에러가 발생할 수 있음
-            await UniTask.NextFrame();
-
-            count++;
+            if (await UniTask.NextFrame(cancellationToken: cancelToken.Token).SuppressCancellationThrow())
+                return;
         }
 
         btnTouchToPlay.gameObject.SetActive(true);
@@ -68,5 +67,11 @@ public class IntroSceneUI : MonoBehaviour
         SceneChanger.SceneType next = SceneChanger.SceneType.Lobby;
 
         SceneChanger.Instance.ChangeScene(next, true).Forget();
+    }
+
+    private void OnDestroy()
+    {
+        cancelToken.Cancel();
+        cancelToken.Dispose();
     }
 }
