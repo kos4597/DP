@@ -1,6 +1,6 @@
-using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
@@ -28,13 +28,13 @@ public class SceneChanger : MonoBehaviour
         Exit,
     }
 
-
+    // 논리가 다른 로직들끼리는 한 칸씩 간격을 줄 것
     public static SceneChanger Instance { get; private set; }
     [NonSerialized]
     public SceneBase PrevScene;
     [NonSerialized]
     public SceneBase CurrentScene;
-    
+
     private void Awake()
     {
         DontDestroyOnLoad(this);
@@ -43,9 +43,9 @@ public class SceneChanger : MonoBehaviour
 
     public async UniTask ChangeScene(SceneType type = SceneType.None, bool useLoading = true)
     {
-        if(CurrentScene != null)
+        if (CurrentScene != null)
         {
-            if(CurrentScene.sceneType == type)
+            if (CurrentScene.sceneType == type)
             {
                 return;
             }
@@ -71,7 +71,7 @@ public class SceneChanger : MonoBehaviour
         if (CurrentScene == null)
             return;
 
-        switch(CurrentScene.sceneState)
+        switch (CurrentScene.sceneState)
         {
             case SceneState.None:
                 {
