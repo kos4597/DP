@@ -6,7 +6,7 @@ public class IdleState : BaseState
 
     public override void OnStateEnter()
     {
-        player.SetAnimaion(StringDefine.IdleAniHash, true);
+        player.SetAnimaion(StringDefine.IDLE_ANI_HASH, true);
     }
 
     public override void OnStateUpdate()
@@ -16,6 +16,6 @@ public class IdleState : BaseState
 
     public override void OnStateExit()
     {
-        player.SetAnimaion(StringDefine.IdleAniHash, false);
+        player.SetAnimaion(StringDefine.IDLE_ANI_HASH, false);
     }
 }

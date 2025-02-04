@@ -30,15 +30,15 @@ public class MoveState : BaseState
 
         float inputMagnitude = new Vector2(horizontal, vertical).magnitude;
         float calcSpeed = Mathf.Clamp01(inputMagnitude);
-        float speed = Mathf.Lerp(player.GetAnimFloatParam(StringDefine.MoveSpeedAniHash), calcSpeed, Time.deltaTime * 10f);
+        float speed = Mathf.Lerp(player.GetAnimFloatParam(StringDefine.MOVESPEED_ANI_HASH), calcSpeed, Time.deltaTime * 10f);
 
         if (inputMagnitude < 0.01f)
         {
             speed = 0;
         }
 
-        player.SetAnimaion(StringDefine.RunAniHash, false);
-        player.SetAnimaion(StringDefine.MoveSpeedAniHash, speed);
+        player.SetAnimaion(StringDefine.RUN_ANI_HASH, false);
+        player.SetAnimaion(StringDefine.MOVESPEED_ANI_HASH, speed);
 
         Vector3 cameraForward = Camera.main.transform.forward;
         Vector3 cameraRight = Camera.main.transform.right;
@@ -69,7 +69,7 @@ public class MoveState : BaseState
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 verticalVel = player.PlayerSO.PlayerData.JumpForce;
-                player.SetAnimaion(StringDefine.JumpAniHash);
+                player.SetAnimaion(StringDefine.JUMP_ANI_HASH);
             }
 
             Vector3 position = playerTr.position;
@@ -87,7 +87,7 @@ public class MoveState : BaseState
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            player.SetAnimaion(StringDefine.RunAniHash, true);
+            player.SetAnimaion(StringDefine.RUN_ANI_HASH, true);
             controller.Move((movement * player.PlayerSO.PlayerData.WalkSpeed + verticalMovement) * Time.deltaTime);
         }
     }

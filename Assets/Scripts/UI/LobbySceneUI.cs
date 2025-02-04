@@ -5,11 +5,11 @@ using UnityEngine.UI;
 public class LobbySceneUI : MonoBehaviour
 {
     [SerializeField]
-    private Button btnBattle = null; // 헝가리안표기 방식 사용X
+    private Button battleButton = null;
 
     private void Awake()
     {
-        btnBattle.onClick.AddListener(OnClickGoBattle);
+        battleButton.onClick.AddListener(OnClickGoBattle);
     }
 
     private void OnClickGoBattle()
