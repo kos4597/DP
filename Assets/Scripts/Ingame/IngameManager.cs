@@ -1,6 +1,6 @@
-using UnityEngine;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class IngameManager : MonoBehaviour
 {
@@ -33,6 +33,7 @@ public class IngameManager : MonoBehaviour
 
     private void SpawnPlayer()
     {
+        // p <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< No!!!!!!!!!!!!!!!!!!!!!!!!!
         Player p = Instantiate(player, playerSpawnPoint.position, Quaternion.identity).GetComponent<Player>();
         SetCameraTarget(p.transform);
     }

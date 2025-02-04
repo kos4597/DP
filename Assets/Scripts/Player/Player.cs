@@ -1,5 +1,98 @@
 using UnityEngine;
 
+
+//using System.Collections.Generic;
+//public enum StateType 
+//{
+//    None,
+//    Idle,
+//    Attack,
+
+//    Max,
+//}
+
+//public class PlayerStateMachine : IStateMachine
+//{
+//    public StateType CurrentStateType { get; private set; }
+
+//    private Dictionary<StateType, IState> states = null;
+
+//    public PlayerStateMachine(Player player)
+//    {
+//        states = new Dictionary<StateType, IState>(StateType.Max);
+//        states.Add(StateType.Idle, new IdleState(player, this));
+//        states.Add(StateType.Attack, new AttackState(player, this));
+//    }
+
+//    public void OnStateChange(StateType stateType)
+//    {
+//        if (CurrentStateType == stateType)
+//            return;
+
+//        if (CurrentStateType != stateType.None)
+//            states[CurrentStateType].OnExit();
+
+//        CurrentStateType = state;
+
+//        states[CurrentStateType].OnEnter();
+//    }
+
+//    public void OnUpdate()
+//    {
+//        states[CurrentStateType].OnUpdate();
+//    }
+//}
+
+//public class IdleState : IState
+//{
+//    private Player player = null;
+//    private PlayerStateMachine stateMachine = null;
+
+//    public IdleState(Player player, PlayerStateMachine stateMachine)
+//    {
+//        this.player = player;
+//        this.stateMachine = stateMachine;
+//    }
+
+//    public void OnEnter()
+//    {
+//    }
+
+//    public void OnExit()
+//    {
+//    }
+
+//    public void OnUpdate()
+//    {
+//        if (공격키) // player.AttackInput()
+//        {
+//            stateMachine.OnStateChange(StateType.Attack);
+//        }
+//        else if (이동키) // player.MoveInput()
+//        {
+//            stateMachine.OnStateChange(StateType.Move);
+//        }
+//    }
+//}
+
+
+//public class Player : MonoBehaviour
+//{
+//    private PlayerStateMachine stateMachine;
+
+//    private void Awake()
+//    {
+//        stateMachine = new PlayerStateMachine(this);
+//        stateMachine.OnStateChange(StateType.Idle);
+//    }
+
+//    private void Update()
+//    {
+//        stateMachine.OnUpdate();
+//    }
+//}
+
+
 public class Player : MonoBehaviour
 {
     [SerializeField]
@@ -75,7 +168,7 @@ public class Player : MonoBehaviour
         curState = nextState;
 
         Debug.Log($"Change State {curState}");
-        switch(curState)
+        switch (curState)
         {
             case BaseState.StateType.Idle:
                 {
