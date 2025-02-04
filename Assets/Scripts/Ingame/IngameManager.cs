@@ -33,14 +33,13 @@ public class IngameManager : MonoBehaviour
 
     private void SpawnPlayer()
     {
-        PlayerController p = Instantiate(player, playerSpawnPoint).GetComponent<PlayerController>();
-        p.SetPlayerCamera();
+        Player p = Instantiate(player, playerSpawnPoint.position, Quaternion.identity).GetComponent<Player>();
         SetCameraTarget(p.transform);
     }
 
     private void SpawnaMonster()
     {
-        Monster m = Instantiate(monster, monsterSpawnPoint).GetComponent<Monster>();
+        Monster m = Instantiate(monster, monsterSpawnPoint.position, Quaternion.identity).GetComponent<Monster>();
     }
 
     private void SetCameraTarget(Transform tr)
