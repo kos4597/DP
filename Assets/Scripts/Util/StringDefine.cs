@@ -2,6 +2,10 @@ using UnityEngine;
 
 public static class StringDefine
 {
+    /// <summary>
+    /// const, readonly 등은 대문자로만 네이밍
+    /// IdleAniHash -> IDLE_ANI_HASH or IDLE_ANIMATION_HASH
+    /// </summary>
     public readonly static int IdleAniHash = Animator.StringToHash("Idle");
     public readonly static int MoveSpeedAniHash = Animator.StringToHash("MoveSpeed");
     public readonly static int RunAniHash = Animator.StringToHash("Run");
