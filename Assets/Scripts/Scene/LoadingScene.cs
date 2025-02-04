@@ -21,7 +21,9 @@ public class LoadingScene : SceneBase
 
             if(LoadingSceneManager.Instance != null)
             {
-                if(LoadingSceneManager.Instance.SetLoadingProgressUI(asyncOperation.progress))
+                LoadingSceneManager.Instance.SetLoadingProgressUI(asyncOperation.progress);
+
+                if (LoadingSceneManager.Instance.IsLoadingEnd)
                 {
                     asyncOperation.allowSceneActivation = true;
                     break;
