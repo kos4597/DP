@@ -11,8 +11,8 @@ public class IngameScene : SceneBase
 
     public override async UniTask LoadingSceneAsync()
     {
-        this.sceneState = SceneChanger.SceneState.Loading;
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync($"{this.sceneType}");
+        ChangeSceneState(SceneChanger.SceneState.Loading);
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync($"{this.SceneType}");
 
         while (asyncOperation.isDone == false)
         {

@@ -66,7 +66,7 @@ public class IntroSceneUI : MonoBehaviour
     {
         SceneChanger.SceneType next = SceneChanger.SceneType.Lobby;
 
-        SceneChanger.Instance.ChangeScene(next, true).Forget();
+        SceneChanger.Instance.ChangeScene(next).Forget();
     }
 
     private void OnDestroy()

@@ -13,7 +13,7 @@ public class LoadingScene : SceneBase
     {
         ChangeSceneState(SceneChanger.SceneState.Loading);
 
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync($"{SceneChanger.Instance.CurrentScene.sceneType}");
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync($"{SceneChanger.Instance.CurrentScene.SceneType}");
 
         while (asyncOperation.isDone == false)
         {
@@ -43,6 +43,6 @@ public class LoadingScene : SceneBase
 
     public override void ExitScene()
     {
-        SceneChanger.Instance.ChangeScene(SceneChanger.Instance.PrevScene.sceneType, false).Forget();
+        SceneChanger.Instance.ChangeScene(SceneChanger.Instance.PrevScene.SceneType).Forget();
     }
 }

@@ -5,6 +5,6 @@ public class Root : MonoBehaviour
 {
     private void Start()
     {
-        SceneChanger.Instance.ChangeScene(SceneChanger.SceneType.Logo, false).Forget();
+        SceneChanger.Instance.ChangeScene(SceneChanger.SceneType.Logo).Forget();
     }
 }

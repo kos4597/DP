@@ -14,6 +14,6 @@ public class LobbySceneUI : MonoBehaviour
 
     private void OnClickGoBattle()
     {
-        SceneChanger.Instance.ChangeScene(SceneChanger.SceneType.Ingame, true).Forget();
+        SceneChanger.Instance.ChangeScene(SceneChanger.SceneType.Ingame).Forget();
     }
 }

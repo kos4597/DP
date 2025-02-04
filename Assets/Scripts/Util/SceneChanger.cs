@@ -41,11 +41,11 @@ public class SceneChanger : MonoBehaviour
         Instance = this;
     }
 
-    public async UniTask ChangeScene(SceneType type = SceneType.None, bool useLoading = true)
+    public async UniTask ChangeScene(SceneType type = SceneType.None)
     {
         if (CurrentScene != null)
         {
-            if (CurrentScene.sceneType == type)
+            if (CurrentScene.SceneType == type)
             {
                 return;
             }
@@ -62,8 +62,8 @@ public class SceneChanger : MonoBehaviour
             _ => null
         };
 
-        CurrentScene.sceneType = type;
-        CurrentScene.sceneState = SceneState.None;
+        CurrentScene.ChangeSceneType(type);
+        CurrentScene.ChangeSceneState(SceneChanger.SceneState.None);
     }
 
     private void Update()
@@ -71,7 +71,7 @@ public class SceneChanger : MonoBehaviour
         if (CurrentScene == null)
             return;
 
-        switch (CurrentScene.sceneState)
+        switch (CurrentScene.SceneState)
         {
             case SceneState.None:
                 {

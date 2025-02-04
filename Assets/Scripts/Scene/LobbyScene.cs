@@ -15,7 +15,7 @@ public class LobbyScene : SceneBase
     {
         ChangeSceneState(SceneChanger.SceneState.Loading);
 
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync($"{this.sceneType}");
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync($"{this.SceneType}");
 
         while (asyncOperation.isDone == false)
         {

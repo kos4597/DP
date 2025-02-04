@@ -16,7 +16,7 @@ public class LogoScene : SceneBase
     {
         ChangeSceneState(SceneChanger.SceneState.Loading);
 
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync($"{this.sceneType}");
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync($"{this.SceneType}");
 
         while (asyncOperation.isDone == false)
         {
@@ -39,6 +39,6 @@ public class LogoScene : SceneBase
     {
         SceneChanger.SceneType next = SceneChanger.SceneType.Intro;
 
-        SceneChanger.Instance.ChangeScene(next, false).Forget();
+        SceneChanger.Instance.ChangeScene(next).Forget();
     }
 }

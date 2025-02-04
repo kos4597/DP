@@ -22,7 +22,7 @@ public class IntroScene : SceneBase
         // await ResourcesManager.LoadScene(path, LoadSceneMode.Single);
         // 나중에는 ResourcesManager가 로드한 리소스를 핸들링해서 로비나 전투 진입 전에 메모리를 털어주거나 해야 함
 
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync($"{this.sceneType}");
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync($"{this.SceneType}");
 
         while (asyncOperation.isDone == false)
         {
