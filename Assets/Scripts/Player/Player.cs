@@ -43,7 +43,7 @@ using UnityEngine;
 //    }
 //}
 
-//public class IdleState : IState
+//public class IdleState : IState // 네이밍이나 네임스페이스 같은걸로 Player Idle, Monster Idle 구분을 주면 좋음
 //{
 //    private Player player = null;
 //    private PlayerStateMachine stateMachine = null;
@@ -64,6 +64,9 @@ using UnityEngine;
 
 //    public void OnUpdate()
 //    {
+// 기본적인 행동과 관련된 상태는 SubState를 만드는것도 좋은 방법이 될 것
+// 예) MoveState -> LocomotionState
+// LocomotionState는 내부적으로 이동, 점프, 슬라이딩 등의 SubState들을 가지고 있음
 //        if (공격키) // player.AttackInput()
 //        {
 //            stateMachine.OnStateChange(StateType.Attack);
