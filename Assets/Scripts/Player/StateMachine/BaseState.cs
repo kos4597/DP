@@ -2,18 +2,13 @@ using UnityEngine;
 
 public abstract class BaseState
 {
-    public enum StateType
-    {
-        Idle,
-        Move,
-        Attack,
-    }
-
     protected Player player;
+    protected PlayerStateMachine stateMachine;
 
-    protected BaseState(Player _player)
+    protected BaseState(Player _player, PlayerStateMachine stateMachine)
     {
-        player = _player;
+        this.player = _player;
+        this.stateMachine = stateMachine;
     }
 
     public abstract void OnStateEnter();

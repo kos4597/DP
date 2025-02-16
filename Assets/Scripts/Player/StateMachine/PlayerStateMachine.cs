@@ -1,31 +1,50 @@
+using System.Collections.Generic;
 using UnityEngine;
+
+public enum StateType
+{
+    None,
+    Idle,
+    Move,
+    Attack,
+
+    Max,
+}
 
 public class PlayerStateMachine
 {
-    private BaseState curState;
-    public PlayerStateMachine(BaseState initState)
+
+    private Dictionary<StateType, BaseState> stateDic = null;
+
+    public PlayerStateMachine(Player player)
     {
-        curState = initState;
-        ChangeState(curState);
+        stateDic = new Dictionary<StateType, BaseState>((int)StateType.Max);
+
+        stateDic.Add(StateType.Idle, new IdleState(player, this));
+        stateDic.Add(StateType.Move, new MoveState(player, this));
+        stateDic.Add(StateType.Attack, new AttackState(player, this));   
     }
 
-    public void ChangeState(BaseState nextState)
+    public StateType CurrentStateType { get; private set; }
+
+    public void ChangeState(StateType stateType)
     {
-        if (curState == nextState)
+        if (CurrentStateType == stateType)
             return;
 
-        if(curState != null)
+        Debug.Log($"ChangeState : {stateType}");
+
+        if(CurrentStateType != StateType.None)
         {
-            curState.OnStateExit();
+            stateDic[CurrentStateType].OnStateExit();
         }
 
-        curState = nextState;
-        curState.OnStateEnter();
+        CurrentStateType = stateType;
+        stateDic[CurrentStateType].OnStateEnter();
     }
 
     public void UpdateState()
     {
-        if (curState != null)
-            curState.OnStateUpdate();
+        stateDic[CurrentStateType].OnStateUpdate();
     }
 }

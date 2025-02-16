@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AttackState : BaseState
 {
-    public AttackState(Player player) : base(player) { }
+    public AttackState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) { }
 
     private int attackStack = -1;
     private float lastAttackTime = 0;
@@ -15,7 +15,12 @@ public class AttackState : BaseState
 
     public override void OnStateUpdate()
     {
-        if (Time.time - lastAttackTime > player.PlayerSO.PlayerData.AttackDelayTime)
+        if (player.AttackAniEndFlag)
+        {
+            stateMachine.ChangeState(StateType.Idle);
+        }
+
+        else if (Time.time - lastAttackTime > player.PlayerSO.PlayerData.AttackDelayTime)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -23,11 +28,14 @@ public class AttackState : BaseState
                 lastAttackTime = Time.time;
             }
         }
+
     }
 
     public override void OnStateExit()
     {
         InitStack();
+        Debug.Log("Attack Exit");
+        player.AttackEnd(false);
     }
 
     private void InitStack()
@@ -41,6 +49,6 @@ public class AttackState : BaseState
 
         Debug.Log("stack : " + attackStack);
         player.SetAnimaion(StringDefine.ATTACKSTACK_ANI_HASH, attackStack);
-        player.SetAnimaion(StringDefine.ATTACKSTACK_ANI_HASH);
+        player.SetAnimaion(StringDefine.ATTACK_ANI_HASH);
     }
 }

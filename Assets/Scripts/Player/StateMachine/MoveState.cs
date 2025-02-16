@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class MoveState : BaseState
 {
-    public MoveState(Player player) : base(player) { }
-
+    public MoveState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) { }
     public override void OnStateEnter()
     {
 
@@ -12,12 +11,28 @@ public class MoveState : BaseState
 
     public override void OnStateUpdate()
     {
-        MovePlayer();
+        if (player.CheckAttack())
+        {
+            stateMachine.ChangeState(StateType.Attack);
+        }
+
+        else if (player.CheckMoveInput() == false)
+        {
+            stateMachine.ChangeState(StateType.Idle);
+        }
+
+        else
+        {
+            MovePlayer();
+        }
+
     }
 
     public override void OnStateExit()
     {
-
+        player.SetAnimaion(StringDefine.RUN_ANI_HASH, false);
+        Debug.Log($"Exit Move");
+        player.SetAnimaion(StringDefine.MOVESPEED_ANI_HASH, 0);
     }
 
     private void MovePlayer()
@@ -32,7 +47,7 @@ public class MoveState : BaseState
         float calcSpeed = Mathf.Clamp01(inputMagnitude);
         float speed = Mathf.Lerp(player.GetAnimFloatParam(StringDefine.MOVESPEED_ANI_HASH), calcSpeed, Time.deltaTime * 10f);
 
-        if (inputMagnitude < 0.01f)
+        if (inputMagnitude < 0.1f)
         {
             speed = 0;
         }
