@@ -7,11 +7,11 @@ public class IngameManager : MonoBehaviour
     [SerializeField]
     private CharacterCamera characterCamera = null;
     [SerializeField]
-    private GameObject player = null;
+    private GameObject playerGo = null;
     [SerializeField]
     private Transform playerSpawnPoint = null;
     [SerializeField]
-    private GameObject monster = null;
+    private GameObject monsterGo = null;
     [SerializeField]
     private Transform monsterSpawnPoint = null;
 
@@ -33,14 +33,13 @@ public class IngameManager : MonoBehaviour
 
     private void SpawnPlayer()
     {
-        // p <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< No!!!!!!!!!!!!!!!!!!!!!!!!!
-        Player p = Instantiate(player, playerSpawnPoint.position, Quaternion.identity).GetComponent<Player>();
-        SetCameraTarget(p.transform);
+        Player player = Instantiate(playerGo, playerSpawnPoint.position, Quaternion.identity).GetComponent<Player>();
+        SetCameraTarget(player.transform);
     }
 
     private void SpawnaMonster()
     {
-        Monster m = Instantiate(monster, monsterSpawnPoint.position, Quaternion.identity).GetComponent<Monster>();
+        Monster monster = Instantiate(monsterGo, monsterSpawnPoint.position, Quaternion.identity).GetComponent<Monster>();
     }
 
     private void SetCameraTarget(Transform tr)

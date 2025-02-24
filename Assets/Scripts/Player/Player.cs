@@ -17,7 +17,6 @@ public class Player : MonoBehaviour
 
     public bool AttackAniEndFlag { get; private set; }
 
-
     private void Awake()
     {
         Debug.Log("Player Create");
