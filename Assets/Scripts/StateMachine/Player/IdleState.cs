@@ -6,23 +6,23 @@ public class IdleState : BaseState
 
     public override void OnStateEnter()
     {
-        player.SetAnimaion(StringDefine.IDLE_ANI_HASH, true);
+        Utility.SetAnimaion(player.GetAnimator(),StringDefine.IDLE_ANI_HASH, true);
     }
 
     public override void OnStateUpdate()
     {
         if (player.CheckAttack())
         {
-            stateMachine.ChangeState(StateType.Attack);
+            playerStateMachine.ChangeState(PlayerStateType.Attack);
         }
         else if (player.CheckMoveInput())
         {
-            stateMachine.ChangeState(StateType.Move);
+            playerStateMachine.ChangeState(PlayerStateType.Move);
         }
     }
 
     public override void OnStateExit()
     {
-        player.SetAnimaion(StringDefine.IDLE_ANI_HASH, false);
+        Utility.SetAnimaion(player.GetAnimator(),StringDefine.IDLE_ANI_HASH, false);
     }
 }

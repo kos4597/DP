@@ -1904,9 +1904,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterCamera: {fileID: 1303953931}
-  player: {fileID: 3861147020150932164, guid: 5ee246edeb79f3e499039d20e84b61be, type: 3}
+  playerGo: {fileID: 3861147020150932164, guid: 5ee246edeb79f3e499039d20e84b61be, type: 3}
   playerSpawnPoint: {fileID: 687349083}
-  monster: {fileID: 9137032837993464747, guid: 4534b9cc6330aed499be54b02abf5283, type: 3}
+  monsterGo: {fileID: 9137032837993464747, guid: 4534b9cc6330aed499be54b02abf5283, type: 3}
   monsterSpawnPoint: {fileID: 776082877}
 --- !u!4 &2146556982
 Transform:

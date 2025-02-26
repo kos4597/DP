@@ -13,12 +13,12 @@ public class MoveState : BaseState
     {
         if (player.CheckAttack())
         {
-            stateMachine.ChangeState(StateType.Attack);
+            playerStateMachine.ChangeState(PlayerStateType.Attack);
         }
 
         else if (player.CheckMoveInput() == false)
         {
-            stateMachine.ChangeState(StateType.Idle);
+            playerStateMachine.ChangeState(PlayerStateType.Idle);
         }
 
         else
@@ -30,30 +30,31 @@ public class MoveState : BaseState
 
     public override void OnStateExit()
     {
-        player.SetAnimaion(StringDefine.RUN_ANI_HASH, false);
+        Utility.SetAnimaion(player.GetAnimator(), StringDefine.RUN_ANI_HASH, false);
         Debug.Log($"Exit Move");
-        player.SetAnimaion(StringDefine.MOVESPEED_ANI_HASH, 0);
+        Utility.SetAnimaion(player.GetAnimator(), StringDefine.MOVESPEED_ANI_HASH, 0);
     }
 
     private void MovePlayer()
     {
         Transform playerTr = player.transform;
         CharacterController controller = player.GetComponent<CharacterController>();
+        Animator animator = player.GetAnimator();
 
         float vertical = Input.GetAxis("Vertical");
         float horizontal = Input.GetAxis("Horizontal");
 
         float inputMagnitude = new Vector2(horizontal, vertical).magnitude;
         float calcSpeed = Mathf.Clamp01(inputMagnitude);
-        float speed = Mathf.Lerp(player.GetAnimFloatParam(StringDefine.MOVESPEED_ANI_HASH), calcSpeed, Time.deltaTime * 10f);
+        float speed = Mathf.Lerp(Utility.GetAnimFloatParam(animator, StringDefine.MOVESPEED_ANI_HASH), calcSpeed, Time.deltaTime * 10f);
 
         if (inputMagnitude < 0.1f)
         {
             speed = 0;
         }
 
-        player.SetAnimaion(StringDefine.RUN_ANI_HASH, false);
-        player.SetAnimaion(StringDefine.MOVESPEED_ANI_HASH, speed);
+        Utility.SetAnimaion(animator, StringDefine.RUN_ANI_HASH, false);
+        Utility.SetAnimaion(animator, StringDefine.MOVESPEED_ANI_HASH, speed);
 
         Vector3 cameraForward = Camera.main.transform.forward;
         Vector3 cameraRight = Camera.main.transform.right;
@@ -84,7 +85,7 @@ public class MoveState : BaseState
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 verticalVel = player.PlayerSO.PlayerData.JumpForce;
-                player.SetAnimaion(StringDefine.JUMP_ANI_HASH);
+                Utility.SetAnimaion(animator, StringDefine.JUMP_ANI_HASH);
             }
 
             Vector3 position = playerTr.position;
@@ -102,7 +103,7 @@ public class MoveState : BaseState
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            player.SetAnimaion(StringDefine.RUN_ANI_HASH, true);
+            Utility.SetAnimaion(animator, StringDefine.RUN_ANI_HASH, true);
             controller.Move((movement * player.PlayerSO.PlayerData.WalkSpeed + verticalMovement) * Time.deltaTime);
         }
     }

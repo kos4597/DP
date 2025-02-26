@@ -6,14 +6,11 @@ public class Player : MonoBehaviour
     private Animator animator = null;
     [SerializeField]
     private Weapon weapon = null;
-    [SerializeField]
-    private CharacterController characterController = null;
 
     [SerializeField]
     public PlayerScriptableObj PlayerSO;
 
-    private StateType curState;
-    private PlayerStateMachine fsm;
+    private PlayerStateMachine stateMachine;
 
     public bool AttackAniEndFlag { get; private set; }
 
@@ -24,13 +21,13 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        fsm = new PlayerStateMachine(this);
-        fsm.ChangeState(StateType.Idle);
+        stateMachine = new PlayerStateMachine(this);
+        stateMachine.ChangeState(PlayerStateType.Idle);
     }
 
     private void Update()
     {
-        fsm?.UpdateState();
+        stateMachine?.UpdateState();
     }
 
     public bool CheckMoveInput()
@@ -59,6 +56,15 @@ public class Player : MonoBehaviour
         weapon.GetComponent<SphereCollider>().enabled = false;
     }
 
+    public Animator GetAnimator()
+    {
+        if (animator == null)
+        {
+            animator = this.GetComponent<Animator>();
+        }
+
+        return animator;
+    }
 
     //Animation Callback Method
     public void CheckAttackEnd()
@@ -69,59 +75,5 @@ public class Player : MonoBehaviour
     public void AttackEnd(bool isEnd)
     {
         AttackAniEndFlag = isEnd;
-    }
-
-    /// <summary>
-    /// Trigger Param
-    /// </summary>
-    /// <param name="hash"></param>
-    public void SetAnimaion(int hash)
-    {
-        if (animator == null)
-            return;
-
-        animator.SetTrigger(hash);
-    }
-    /// <summary>
-    /// Bool param
-    /// </summary>
-    /// <param name="hash"></param>
-    /// <param name="isOn"></param>
-    public void SetAnimaion(int hash, bool isOn)
-    {
-        if (animator == null)
-            return;
-
-        animator.SetBool(hash, isOn);
-    }
-    /// <summary>
-    /// Int Param
-    /// </summary>
-    /// <param name="hash"></param>
-    /// <param name="count"></param>
-    public void SetAnimaion(int hash, int count)
-    {
-        if (animator == null)
-            return;
-
-        animator.SetInteger(hash, count);
-    }
-    /// <summary>
-    /// Float Param
-    /// </summary>
-    /// <param name="hash"></param>
-    /// <param name="count"></param>
-    public void SetAnimaion(int hash, float count)
-    {
-        if (animator == null)
-            return;
-
-        animator.SetFloat(hash, count);
-    }
-
-
-    public float GetAnimFloatParam(int hash)
-    {
-        return animator.GetFloat(hash);
     }
 }

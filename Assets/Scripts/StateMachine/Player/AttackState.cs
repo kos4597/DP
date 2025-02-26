@@ -17,7 +17,7 @@ public class AttackState : BaseState
     {
         if (player.AttackAniEndFlag)
         {
-            stateMachine.ChangeState(StateType.Idle);
+            playerStateMachine.ChangeState(PlayerStateType.Idle);
         }
 
         else if (Time.time - lastAttackTime > player.PlayerSO.PlayerData.AttackDelayTime)
@@ -48,7 +48,7 @@ public class AttackState : BaseState
         attackStack++;
 
         Debug.Log("stack : " + attackStack);
-        player.SetAnimaion(StringDefine.ATTACKSTACK_ANI_HASH, attackStack);
-        player.SetAnimaion(StringDefine.ATTACK_ANI_HASH);
+        Utility.SetAnimaion(player.GetAnimator(), StringDefine.ATTACKSTACK_ANI_HASH, attackStack);
+        Utility.SetAnimaion(player.GetAnimator(), StringDefine.ATTACK_ANI_HASH);
     }
 }
