@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -15,15 +16,15 @@ public class Utility : MonoBehaviour
 
     public static void FadeInOut(RawImage texture = null, TMP_Text text = null, FadeType type = FadeType.FadeIn, float fadeTime = 1f)
     {
-        switch(type)
+        switch (type)
         {
             case FadeType.FadeIn:
                 {
-                    if(texture != null)
+                    if (texture != null)
                         texture.CrossFadeAlpha(0f, fadeTime, false);
 
-                    if(text != null)
-                        text.CrossFadeAlpha(0f,fadeTime, false);
+                    if (text != null)
+                        text.CrossFadeAlpha(0f, fadeTime, false);
                 }
                 break;
 
@@ -38,6 +39,18 @@ public class Utility : MonoBehaviour
                 break;
         }
     }
+
+    //// 확장 메소드로 만드는게 좋음
+    //public static void SafeSetAnimation(this Animator animator, int hash)
+    //{
+    //    if (animator == null)
+    //        return;
+
+    //    animator.SetTrigger(hash);
+
+    //    // 외부에서 호출 시
+    //    //animator.SafeSetAnimation(hash);
+    //}
 
     /// <summary>
     /// Trigger Param
@@ -67,7 +80,7 @@ public class Utility : MonoBehaviour
     /// </summary>
     /// <param name="hash"></param>
     /// <param name="count"></param>
-    public static void SetAnimaion(Animator animator,int hash, int count)
+    public static void SetAnimaion(Animator animator, int hash, int count)
     {
         if (animator == null)
             return;
@@ -79,7 +92,7 @@ public class Utility : MonoBehaviour
     /// </summary>
     /// <param name="hash"></param>
     /// <param name="count"></param>
-    public static void SetAnimaion(Animator animator,int hash, float count)
+    public static void SetAnimaion(Animator animator, int hash, float count)
     {
         if (animator == null)
             return;
@@ -88,7 +101,7 @@ public class Utility : MonoBehaviour
     }
 
 
-    public static float GetAnimFloatParam(Animator animator,int hash)
+    public static float GetAnimFloatParam(Animator animator, int hash)
     {
         return animator.GetFloat(hash);
     }
