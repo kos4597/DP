@@ -14,12 +14,14 @@ public class PatrolState : BaseState
     {
         characterController = monster.GetComponent<CharacterController>();
         SetRandomDestination();
+        monster.GetComponent<Animator>().SetAnimaion(StringDefine.PATROL_ANI_HASH, true);
     }
 
     public override void OnStateUpdate()
     {
         if(monster.CheckPlayerInRange())
         {
+            Debug.Log("Change State [Tracking]");
             monsterStateMachine?.ChangeState(MonsterStateType.Tracking);
         }
         else
@@ -31,7 +33,7 @@ public class PatrolState : BaseState
 
     public override void OnStateExit()
     {
-
+        monster.GetComponent<Animator>().SetAnimaion(StringDefine.PATROL_ANI_HASH, false);
     }
 
     private void Patrol()

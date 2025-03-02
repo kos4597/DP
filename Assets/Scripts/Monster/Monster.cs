@@ -1,16 +1,15 @@
+using System;
 using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
     [SerializeField]
     private Animator animator = null;
-
-    [SerializeField]
-    private Transform[] wayPoints = null;
+    public Transform SpawnPoint { get; private set; }
 
     public float patrolRange = 10f; // 순찰 반경
     public float trackingRange = 10f; // 추격 반경
-    public float speed = 2f; // 이동 속도
+    public float speed = 10f; // 이동 속도
     public float rotationSpeed = 5f; // 회전 속도
     public float gravity = 9.81f; // 중력
 
@@ -53,4 +52,21 @@ public class Monster : MonoBehaviour
         float distance = Vector3.Distance(transform.position, targetPlayer.position);
         return distance <= trackingRange;
     }
+
+    public bool CheckRunAwayEnd()
+    {
+        float distance = Vector3.Distance(transform.position, SpawnPoint.position);
+        return distance <= 1f;
+    }
+
+    public void SetTargetPlayer(Transform tr)
+    {
+        targetPlayer = tr;
+    }
+
+    public void SetSpawnPoint(Transform tr)
+    {
+        SpawnPoint = tr;
+    }
+
 }

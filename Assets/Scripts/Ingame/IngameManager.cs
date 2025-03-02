@@ -15,6 +15,9 @@ public class IngameManager : MonoBehaviour
     [SerializeField]
     private Transform monsterSpawnPoint = null;
 
+    private Player player = null;
+    private Monster monster = null;
+
     [NonSerialized]
     public List<Monster> monsterPool = new List<Monster>();
 
@@ -33,13 +36,17 @@ public class IngameManager : MonoBehaviour
 
     private void SpawnPlayer()
     {
-        Player player = Instantiate(playerGo, playerSpawnPoint.position, Quaternion.identity).GetComponent<Player>();
+        player = Instantiate(playerGo, playerSpawnPoint.position, Quaternion.identity).GetComponent<Player>();
         SetCameraTarget(player.transform);
     }
 
     private void SpawnaMonster()
     {
-        Monster monster = Instantiate(monsterGo, monsterSpawnPoint.position, Quaternion.identity).GetComponent<Monster>();
+        monster = Instantiate(monsterGo, monsterSpawnPoint.position, Quaternion.identity).GetComponent<Monster>();
+
+        monster.SetSpawnPoint(monsterSpawnPoint);
+        monster.SetTargetPlayer(player.transform);
+
     }
 
     private void SetCameraTarget(Transform tr)
