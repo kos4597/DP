@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -6,11 +7,17 @@ public class Player : MonoBehaviour
     private Animator animator = null;
     [SerializeField]
     private Weapon weapon = null;
+    [SerializeField]
+    private CharacterController controller = null;
+    public CharacterController Controller => controller;
 
     [SerializeField]
-    public PlayerScriptableObj PlayerSO;
+    private PlayerScriptableObj playerSO;
+    public PlayerScriptableObj PlayerSO => playerSO;
 
     private PlayerStateMachine stateMachine;
+
+    private Vector3 velocity;
 
     public bool AttackAniEndFlag { get; private set; }
 
@@ -27,6 +34,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        ApplyGravity();
         stateMachine?.UpdateState();
     }
 
@@ -75,5 +83,17 @@ public class Player : MonoBehaviour
     public void AttackEnd(bool isEnd)
     {
         AttackAniEndFlag = isEnd;
+    }
+    private void ApplyGravity()
+    {
+        if (!controller.isGrounded)
+        {
+            velocity.y += playerSO.PlayerData.Gravity * Time.deltaTime * 5f;
+            controller.Move(velocity * Time.deltaTime);
+        }
+        else
+        {
+            velocity.y = 0;
+        }
     }
 }

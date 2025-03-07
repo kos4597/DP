@@ -1,21 +1,27 @@
 using System;
+using System.Threading;
 using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
     [SerializeField]
     private Animator animator = null;
+    [SerializeField]
+    private CharacterController controller = null;
+
+    public CharacterController Controller => controller;
+
     public Transform SpawnPoint { get; private set; }
 
-    public float patrolRange = 10f; // 순찰 반경
-    public float trackingRange = 10f; // 추격 반경
-    public float speed = 10f; // 이동 속도
-    public float rotationSpeed = 5f; // 회전 속도
-    public float gravity = 9.81f; // 중력
 
-    private Transform targetPlayer = null;
+    [SerializeField]
+    private MonsterScriptableObj monsterSO;
+    public MonsterScriptableObj MonsterSO => monsterSO;
+
+    public Transform TrackingTargetTr { get; private set; }
 
     private MonsterStateMachine stateMachine;
+    private Vector3 velocity;
 
 
     private void Awake()
@@ -30,6 +36,7 @@ public class Monster : MonoBehaviour
 
     private void Update()
     {
+        ApplyGravity();
         stateMachine?.UpdateState();
     }
 
@@ -41,27 +48,27 @@ public class Monster : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, trackingRange);
+        Gizmos.DrawWireSphere(transform.position, MonsterSO.MonsterData.TrackingRange);
     }
 
     public bool CheckPlayerInRange()
     {
-        if (targetPlayer == null) 
+        if (TrackingTargetTr == null) 
             return false;
 
-        float distance = Vector3.Distance(transform.position, targetPlayer.position);
-        return distance <= trackingRange;
+        float distance = Vector3.Distance(transform.position, TrackingTargetTr.position);
+        return distance <= MonsterSO.MonsterData.TrackingRange;
     }
 
     public bool CheckRunAwayEnd()
     {
         float distance = Vector3.Distance(transform.position, SpawnPoint.position);
-        return distance <= 1f;
+        return distance <= 2f;
     }
 
     public void SetTargetPlayer(Transform tr)
     {
-        targetPlayer = tr;
+        TrackingTargetTr = tr;
     }
 
     public void SetSpawnPoint(Transform tr)
@@ -69,4 +76,16 @@ public class Monster : MonoBehaviour
         SpawnPoint = tr;
     }
 
+    private void ApplyGravity()
+    {
+        if (!controller.isGrounded)
+        {
+            velocity.y += MonsterSO.MonsterData.Gravity * Time.deltaTime * 5f;
+            controller.Move(velocity * Time.deltaTime);
+        }
+        else
+        {
+            velocity.y = 0;
+        }
+    }
 }

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class TrackingState : BaseState
@@ -14,15 +15,33 @@ public class TrackingState : BaseState
     {
         trackingTime += Time.deltaTime;
 
-        if(trackingTime > 5f)
+        if(trackingTime > 10f)
         {
             Debug.Log("Change State [RunAway]");
             monsterStateMachine.ChangeState(MonsterStateType.RunAway);
+        }
+        else
+        {
+            Tracking();
         }
     }
 
     public override void OnStateExit()
     {
         monster.GetComponent<Animator>().SetAnimaion(StringDefine.TRACKING_ANI_HASH, false);
+    }
+
+    private void Tracking()
+    {
+        Vector3 direction = (monster.TrackingTargetTr.position - monster.transform.position).normalized;
+        direction.y = 0;
+
+        if (direction != Vector3.zero)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            monster.transform.rotation = Quaternion.Slerp(monster.transform.rotation, lookRotation, monster.MonsterSO.MonsterData.RotationSpeed * Time.deltaTime);
+        }
+
+        monster.Controller.Move(direction * monster.MonsterSO.MonsterData.MoveSpeed * Time.deltaTime);
     }
 }

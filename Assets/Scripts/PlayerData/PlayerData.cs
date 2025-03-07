@@ -1,8 +1,5 @@
 using UnityEngine;
 
-// 테이블이나 스크립터블로 뺄거면 상관 없는데 그게 아니라면 구조체여도 될 듯?
-// 참고로 int, float 같은 원시 데이터만 있는 경우에는 구조체를 활용하면 좋음
-// List, Array 같은 애들은 참조 타입이라 int[] 이것도 참조 타입이 되서 구조체에는 안맞음 (효율이 떨어질 뿐이지 해도 상관 없음)
 [SerializeField]
 public class PlayerData
 {

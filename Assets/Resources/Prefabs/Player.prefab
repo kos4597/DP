@@ -2565,8 +2565,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 2642684088989824222}
   weapon: {fileID: 7871874567773562269}
-  characterController: {fileID: 3366018229685197978}
-  PlayerSO: {fileID: 11400000, guid: f09e5ba132b25cb4c96a24afa968a52d, type: 2}
+  playerSO: {fileID: 11400000, guid: f09e5ba132b25cb4c96a24afa968a52d, type: 2}
+  controller: {fileID: 3366018229685197978}
 --- !u!143 &3366018229685197978
 CharacterController:
   m_ObjectHideFlags: 0

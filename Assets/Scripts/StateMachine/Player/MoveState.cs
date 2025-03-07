@@ -38,7 +38,6 @@ public class MoveState : BaseState
     private void MovePlayer()
     {
         Transform playerTr = player.transform;
-        CharacterController controller = player.GetComponent<CharacterController>();
         Animator animator = player.GetAnimator();
 
         float vertical = Input.GetAxis("Vertical");
@@ -77,53 +76,19 @@ public class MoveState : BaseState
 
         float verticalVel = player.PlayerSO.PlayerData.VerticalVelocity;
 
-        if (IsGrounded(out float groundHeight))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (verticalVel < 0)
-                verticalVel = 0f;
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                verticalVel = player.PlayerSO.PlayerData.JumpForce;
-                animator.SetAnimaion(StringDefine.JUMP_ANI_HASH);
-            }
-
-            Vector3 position = playerTr.position;
-            position.y = groundHeight + player.PlayerSO.PlayerData.HeightOffset;
-            playerTr.position = position;
-        }
-        else
-        {
-            // 공중에 있으면 중력을 적용
-            verticalVel += player.PlayerSO.PlayerData.Gravity * Time.deltaTime * 5f;
+            verticalVel = player.PlayerSO.PlayerData.JumpForce;
+            animator.SetAnimaion(StringDefine.JUMP_ANI_HASH);
         }
 
         Vector3 verticalMovement = new Vector3(0, verticalVel, 0);
-        controller.Move((movement * player.PlayerSO.PlayerData.WalkSpeed + verticalMovement) * Time.deltaTime);
+        player.Controller.Move((movement * player.PlayerSO.PlayerData.WalkSpeed + verticalMovement) * Time.deltaTime);
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
             animator.SetAnimaion(StringDefine.RUN_ANI_HASH, true);
-            controller.Move((movement * player.PlayerSO.PlayerData.WalkSpeed + verticalMovement) * Time.deltaTime);
+            player.Controller.Move((movement * player.PlayerSO.PlayerData.WalkSpeed + verticalMovement) * Time.deltaTime);
         }
-    }
-
-    private bool IsGrounded(out float groundHeight)
-    {
-        Transform playerTr = player.transform;
-
-        RaycastHit hit;
-        Vector3 rayOrigin = playerTr.position + Vector3.up * 0.2f;
-        Debug.DrawRay(rayOrigin, Vector3.down * player.PlayerSO.PlayerData.RaycastDistance, Color.red, 1f);
-        LayerMask groundLayer = LayerMask.GetMask("Ground"); // 땅 레이어
-
-        if (Physics.Raycast(rayOrigin, Vector3.down, out hit, player.PlayerSO.PlayerData.RaycastDistance, groundLayer))
-        {
-            groundHeight = hit.point.y;
-            return true;
-        }
-
-        groundHeight = 0f;
-        return false;
     }
 }

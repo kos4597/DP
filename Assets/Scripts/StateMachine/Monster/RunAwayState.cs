@@ -19,7 +19,7 @@ public class RunAwayState : BaseState
     {
         if(monster.CheckRunAwayEnd())
         {
-            Debug.Log("Change State [Patrol]");
+            Debug.Log("RunAway End");
             monsterStateMachine.ChangeState(MonsterStateType.Patrol);
         }
         else
@@ -36,10 +36,10 @@ public class RunAwayState : BaseState
         if (direction != Vector3.zero)
         {
             Quaternion lookRotation = Quaternion.LookRotation(direction);
-            monster.transform.rotation = Quaternion.Slerp(monster.transform.rotation, lookRotation, monster.rotationSpeed * Time.deltaTime);
+            monster.transform.rotation = Quaternion.Slerp(monster.transform.rotation, lookRotation, monster.MonsterSO.MonsterData.RotationSpeed * Time.deltaTime);
         }
 
-        characterController.Move(direction * monster.speed * Time.deltaTime);
+        characterController.Move(direction * monster.MonsterSO.MonsterData.MoveSpeed * Time.deltaTime);
     }
 
     public override void OnStateExit()
