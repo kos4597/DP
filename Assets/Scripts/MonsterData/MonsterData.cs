@@ -1,5 +1,10 @@
 using UnityEngine;
 
+/// <summary>
+/// cs파일 만들 때 UTF8로 만들어지게 설정 하는게 좋음
+/// UTF8이 아니면 인스펙터나 git 같은 곳에서 한글이 다 깨져서 주석이 하나도 안보임
+/// 설정 방법은 기억 안나므로 찾아서 하시길....
+/// </summary>
 [SerializeField]
 public class MonsterData
 {
@@ -10,7 +15,7 @@ public class MonsterData
     [SerializeField]
     private float trackingRange = 5f; // 추격 반경
     public float TrackingRange => trackingRange;
-    
+
     [SerializeField]
     private float moveSpeed = 4f; // 이동 속도
     public float MoveSpeed => moveSpeed;
