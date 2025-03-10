@@ -30,9 +30,9 @@ public class MoveState : BaseState
 
     public override void OnStateExit()
     {
-        player.GetAnimator().SetAnimaion(StringDefine.RUN_ANI_HASH, false);
+        player.GetAnimator().SafeSetAnimaion(StringDefine.RUN_ANI_HASH, false);
         Debug.Log($"Exit Move");
-        player.GetAnimator().SetAnimaion(StringDefine.MOVESPEED_ANI_HASH, 0);
+        player.GetAnimator().SafeSetAnimaion(StringDefine.MOVESPEED_ANI_HASH, 0);
     }
 
     private void MovePlayer()
@@ -45,15 +45,15 @@ public class MoveState : BaseState
 
         float inputMagnitude = new Vector2(horizontal, vertical).magnitude;
         float calcSpeed = Mathf.Clamp01(inputMagnitude);
-        float speed = Mathf.Lerp(animator.GetAnimFloatParam(StringDefine.MOVESPEED_ANI_HASH), calcSpeed, Time.deltaTime * 10f);
+        float speed = Mathf.Lerp(animator.SafeGetAnimFloatParam(StringDefine.MOVESPEED_ANI_HASH), calcSpeed, Time.deltaTime * 10f);
 
         if (inputMagnitude < 0.1f)
         {
             speed = 0;
         }
 
-        animator.SetAnimaion(StringDefine.RUN_ANI_HASH, false);
-        animator.SetAnimaion(StringDefine.MOVESPEED_ANI_HASH, speed);
+        animator.SafeSetAnimaion(StringDefine.RUN_ANI_HASH, false);
+        animator.SafeSetAnimaion(StringDefine.MOVESPEED_ANI_HASH, speed);
 
         Vector3 cameraForward = Camera.main.transform.forward;
         Vector3 cameraRight = Camera.main.transform.right;
@@ -79,7 +79,7 @@ public class MoveState : BaseState
         if (Input.GetKeyDown(KeyCode.Space))
         {
             verticalVel = player.PlayerSO.PlayerData.JumpForce;
-            animator.SetAnimaion(StringDefine.JUMP_ANI_HASH);
+            animator.SafeSetAnimaion(StringDefine.JUMP_ANI_HASH);
         }
 
         Vector3 verticalMovement = new Vector3(0, verticalVel, 0);
@@ -87,7 +87,7 @@ public class MoveState : BaseState
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            animator.SetAnimaion(StringDefine.RUN_ANI_HASH, true);
+            animator.SafeSetAnimaion(StringDefine.RUN_ANI_HASH, true);
             player.Controller.Move((movement * player.PlayerSO.PlayerData.WalkSpeed + verticalMovement) * Time.deltaTime);
         }
     }

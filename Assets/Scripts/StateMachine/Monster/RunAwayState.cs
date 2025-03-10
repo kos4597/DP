@@ -10,7 +10,7 @@ public class RunAwayState : BaseState
 
     public override void OnStateEnter()
     {
-        monster.GetComponent<Animator>().SetAnimaion(StringDefine.RUNAWAY_ANI_HASH);
+        monster.GetComponent<Animator>().SafeSetAnimaion(StringDefine.RUNAWAY_ANI_HASH);
         targetPosition = monster.SpawnPoint.position;
         characterController = monster.GetComponent<CharacterController>();
     }
@@ -44,6 +44,6 @@ public class RunAwayState : BaseState
 
     public override void OnStateExit()
     {
-        monster.GetComponent<Animator>().SetAnimaion(StringDefine.PATROL_ANI_HASH, true);
+        monster.GetComponent<Animator>().SafeSetAnimaion(StringDefine.PATROL_ANI_HASH, true);
     }
 }

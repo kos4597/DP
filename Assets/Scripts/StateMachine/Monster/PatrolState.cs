@@ -11,7 +11,7 @@ public class PatrolState : BaseState
     public override void OnStateEnter()
     {
         SetRandomDestination();
-        monster.GetComponent<Animator>().SetAnimaion(StringDefine.PATROL_ANI_HASH, true);
+        monster.GetComponent<Animator>().SafeSetAnimaion(StringDefine.PATROL_ANI_HASH, true);
     }
 
     public override void OnStateUpdate()
@@ -29,7 +29,7 @@ public class PatrolState : BaseState
 
     public override void OnStateExit()
     {
-        monster.GetComponent<Animator>().SetAnimaion(StringDefine.PATROL_ANI_HASH, false);
+        monster.GetComponent<Animator>().SafeSetAnimaion(StringDefine.PATROL_ANI_HASH, false);
     }
 
     private void Patrol()

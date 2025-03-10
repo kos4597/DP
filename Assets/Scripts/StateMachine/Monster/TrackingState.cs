@@ -8,7 +8,7 @@ public class TrackingState : BaseState
     private float trackingTime = 0f;
     public override void OnStateEnter()
     {
-        monster.GetComponent<Animator>().SetAnimaion(StringDefine.TRACKING_ANI_HASH, true);
+        monster.GetComponent<Animator>().SafeSetAnimaion(StringDefine.TRACKING_ANI_HASH, true);
     }
 
     public override void OnStateUpdate()
@@ -28,7 +28,7 @@ public class TrackingState : BaseState
 
     public override void OnStateExit()
     {
-        monster.GetComponent<Animator>().SetAnimaion(StringDefine.TRACKING_ANI_HASH, false);
+        monster.GetComponent<Animator>().SafeSetAnimaion(StringDefine.TRACKING_ANI_HASH, false);
     }
 
     private void Tracking()

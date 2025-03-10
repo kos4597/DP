@@ -48,7 +48,7 @@ public class AttackState : BaseState
         attackStack++;
 
         Debug.Log("stack : " + attackStack);
-        player.GetAnimator().SetAnimaion(StringDefine.ATTACKSTACK_ANI_HASH, attackStack);
-        player.GetAnimator().SetAnimaion(StringDefine.ATTACK_ANI_HASH);
+        player.GetAnimator().SafeSetAnimaion(StringDefine.ATTACKSTACK_ANI_HASH, attackStack);
+        player.GetAnimator().SafeSetAnimaion(StringDefine.ATTACK_ANI_HASH);
     }
 }
