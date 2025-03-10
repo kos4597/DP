@@ -1,27 +1,22 @@
 using UnityEngine;
 
-/// <summary>
-/// csÆÄÀÏ ¸¸µé ¶§ UTF8·Î ¸¸µé¾îÁö°Ô ¼³Á¤ ÇÏ´Â°Ô ÁÁÀ½
-/// UTF8ÀÌ ¾Æ´Ï¸é ÀÎ½ºÆåÅÍ³ª git °°Àº °÷¿¡¼­ ÇÑ±ÛÀÌ ´Ù ±úÁ®¼­ ÁÖ¼®ÀÌ ÇÏ³ªµµ ¾Èº¸ÀÓ
-/// ¼³Á¤ ¹æ¹ýÀº ±â¾ï ¾È³ª¹Ç·Î Ã£¾Æ¼­ ÇÏ½Ã±æ....
-/// </summary>
 [SerializeField]
 public class MonsterData
 {
     [SerializeField]
-    private float patrolRange = 10f; // ¼øÂû ¹Ý°æ
+    private float patrolRange = 10f; // ìˆœì°° ë°˜ê²½
     public float PatrolRange => patrolRange;
 
     [SerializeField]
-    private float trackingRange = 5f; // Ãß°Ý ¹Ý°æ
+    private float trackingRange = 5f; // ì¶”ê²© ë°˜ê²½
     public float TrackingRange => trackingRange;
 
     [SerializeField]
-    private float moveSpeed = 4f; // ÀÌµ¿ ¼Óµµ
+    private float moveSpeed = 4f; // ì´ë™ ì†ë„
     public float MoveSpeed => moveSpeed;
 
     [SerializeField]
-    private float rotationSpeed = 5f; // È¸Àü ¼Óµµ
+    private float rotationSpeed = 5f; // íšŒì „ ì†ë„
     public float RotationSpeed => rotationSpeed;
 
     [SerializeField]
@@ -29,10 +24,10 @@ public class MonsterData
     public double HP => hp;
 
     [SerializeField]
-    private float gravity = -9.81f; // Áß·Â
+    private float gravity = -9.81f; // ì¤‘ë ¥
     public float Gravity => gravity;
 
     [SerializeField]
-    private float raycastDistance = 0.5f; // ¶¥ Ã¼Å©¿ë Raycast °Å¸®
+    private float raycastDistance = 0.5f; // ë•… ì²´í¬ìš© Raycast ê±°ë¦¬
     public float RaycastDistance => raycastDistance;
 }
