@@ -18,8 +18,14 @@ public class TrackingState : BaseState
         if(trackingTime > 10f)
         {
             Debug.Log("Change State [RunAway]");
-            monsterStateMachine.ChangeState(MonsterStateType.RunAway);
+            monsterStateMachine?.ChangeState(MonsterStateType.RunAway);
         }
+
+        else if (monster.CheckPlayerAttackRange())
+        {
+            monsterStateMachine?.ChangeState(MonsterStateType.Attack);
+        }
+
         else
         {
             Tracking();

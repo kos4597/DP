@@ -18,7 +18,6 @@ public class PatrolState : BaseState
     {
         if (monster.CheckPlayerInRange())
         {
-            Debug.Log("Change State [Tracking]");
             monsterStateMachine?.ChangeState(MonsterStateType.Tracking);
         }
         else
@@ -45,11 +44,10 @@ public class PatrolState : BaseState
 
         monster.Controller.Move(direction * monster.MonsterSO.MonsterData.MoveSpeed * Time.deltaTime);
 
-        Debug.LogError($"Distance : {Vector3.Distance(monster.transform.position, targetPosition)}");
-
         if (Vector3.Distance(monster.transform.position, targetPosition) < 2f)
         {
-            SetRandomDestination();
+            monster.Controller.Move(Vector3.zero);
+            monsterStateMachine.ChangeState(MonsterStateType.Idle);
         }
     }
 

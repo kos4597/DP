@@ -12,6 +12,16 @@ public class MonsterData
     public float TrackingRange => trackingRange;
 
     [SerializeField]
+    private float attackRange = 2f; // 공격 반경
+
+    public float AttackRange => attackRange;
+
+    [SerializeField]
+    private int attackSpeed = 1000; // 공격속도(ms)
+
+    public int AttackSpeed => attackSpeed;
+
+    [SerializeField]
     private float moveSpeed = 4f; // 이동 속도
     public float MoveSpeed => moveSpeed;
 

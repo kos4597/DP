@@ -31,7 +31,7 @@ public class Monster : MonoBehaviour
     private void Start()
     {
         stateMachine = new MonsterStateMachine(this);
-        stateMachine.ChangeState(MonsterStateType.Patrol);
+        stateMachine.ChangeState(MonsterStateType.Idle);
     }
 
     private void Update()
@@ -49,7 +49,12 @@ public class Monster : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, MonsterSO.MonsterData.TrackingRange);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, MonsterSO.MonsterData.AttackRange);
     }
+
+
 
     public bool CheckPlayerInRange()
     {
@@ -58,6 +63,15 @@ public class Monster : MonoBehaviour
 
         float distance = Vector3.Distance(transform.position, TrackingTargetTr.position);
         return distance <= MonsterSO.MonsterData.TrackingRange;
+    }
+
+    public bool CheckPlayerAttackRange()
+    {
+        if (TrackingTargetTr == null)
+            return false;
+
+        float distance = Vector3.Distance(transform.position, TrackingTargetTr.position);
+        return distance <= MonsterSO.MonsterData.AttackRange;
     }
 
     public bool CheckRunAwayEnd()

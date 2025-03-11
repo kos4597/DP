@@ -4,8 +4,10 @@ public enum MonsterStateType
 {
     None,
 
+    Idle,
     Patrol,
     Tracking,
+    Attack,
     RunAway,
 
     Max,
@@ -20,8 +22,10 @@ public class MonsterStateMachine : IStateMachine<MonsterStateType>
     {
         stateDic = new Dictionary<MonsterStateType, BaseState>((int)MonsterStateType.Max)
         {
+            { MonsterStateType.Idle, new MonsterIdleState(monster, this) },
             { MonsterStateType.Patrol, new PatrolState(monster, this) },
             { MonsterStateType.Tracking, new TrackingState(monster, this) },
+            { MonsterStateType.Attack, new MonsterAttackState(monster, this) },
             { MonsterStateType.RunAway, new RunAwayState(monster, this) }
         };
     }
@@ -31,7 +35,7 @@ public class MonsterStateMachine : IStateMachine<MonsterStateType>
         if (CurrentStateType == stateType)
             return;
 
-        Debug.Log($"ChangeState : {stateType}");
+        Debug.LogWarning($"ChangeState : {stateType}");
 
         if (CurrentStateType != MonsterStateType.None)
         {

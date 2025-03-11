@@ -3,7 +3,7 @@ using UnityEngine;
 public static class StringDefine
 {
     /// <summary>
-    /// const, readonly µîÀº ´ë¹®ÀÚ·Î¸¸ ³×ÀÌ¹Ö
+    /// const, readonly ë“±ì€ ëŒ€ë¬¸ìžë¡œë§Œ ë„¤ì´ë°
     /// IdleAniHash -> IDLE_ANI_HASH or IDLE_ANIMATION_HASH
     /// </summary>
 
@@ -20,8 +20,10 @@ public static class StringDefine
     #endregion
 
     #region MonsterAnimation
+    public readonly static int MONSTER_IDLE_ANI_HASH = Animator.StringToHash("MonsterIdle");
     public readonly static int PATROL_ANI_HASH = Animator.StringToHash("Patrol");
     public readonly static int TRACKING_ANI_HASH = Animator.StringToHash("Tracking");
+    public readonly static int MONSTER_ATTACK_ANI_HASH = Animator.StringToHash("MonsterAttack");
     public readonly static int RUNAWAY_ANI_HASH = Animator.StringToHash("RunAway");
     #endregion
 }
