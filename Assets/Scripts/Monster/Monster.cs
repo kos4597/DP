@@ -40,7 +40,7 @@ public class Monster : MonoBehaviour
         stateMachine?.UpdateState();
     }
 
-    public void Hit(int damage)
+    public void HitMonster(int damage)
     {
         Debug.Log("Hit" + damage);
     }

@@ -8,7 +8,7 @@ public class MonsterData
     public float PatrolRange => patrolRange;
 
     [SerializeField]
-    private float trackingRange = 5f; // 추격 반경
+    private float trackingRange = 10f; // 추격 반경
     public float TrackingRange => trackingRange;
 
     [SerializeField]

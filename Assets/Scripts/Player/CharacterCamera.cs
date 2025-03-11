@@ -3,21 +3,13 @@ using UnityEngine.InputSystem;
 
 public class CharacterCamera : MonoBehaviour
 {
+    private Transform target;  // ìºë¦­í„°ë¥¼ ë”°ë¼ê°€ëŠ” íƒ€ê²Ÿ
 
-    [SerializeField]
-    private Transform target;  // Ä³¸¯ÅÍ¸¦ µû¶ó°¡´Â Å¸°Ù
-    [SerializeField]
-    private float distance = 3.0f;  // ±âº» °Å¸®
-    private float zoomSpeed = 2.0f;  // ÁÜ ¼Óµµ
-    private float rotationSpeed = 100.0f;  // È¸Àü ¼Óµµ
-    [SerializeField]
+    private float distance = 3.0f;  // ê¸°ë³¸ ê±°ë¦¬
+    private float zoomSpeed = 2.0f;  // ì¤Œ ì†ë„
     private float targetOffsetY = 3.0f;
-    [SerializeField]
     private float targetOffsetZ = -2.5f;
-    [SerializeField]
     private float currentZoom;
-    [SerializeField]
-    private float currentRotation;
 
     private float _xRotation;
     private float _yRotation;
@@ -37,9 +29,9 @@ public class CharacterCamera : MonoBehaviour
 
     private void CalcCamera()
     {
-        // ÁÜ (¸¶¿ì½º ÈÙ)
+        // ì¤Œ (ë§ˆìš°ìŠ¤ íœ )
         currentZoom -= Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
-        currentZoom = Mathf.Clamp(currentZoom, 2.0f, 15.0f);  // ÁÜ Á¦ÇÑ
+        currentZoom = Mathf.Clamp(currentZoom, 2.0f, 15.0f);  // ì¤Œ ì œí•œ
 
         if(Input.GetMouseButton(1))
         {
@@ -53,7 +45,7 @@ public class CharacterCamera : MonoBehaviour
             rotation = Quaternion.Euler(_xRotation, _yRotation, 0);
         }
 
-        // Ä«¸Ş¶ó À§Ä¡ ¾÷µ¥ÀÌÆ®
+        // ì¹´ë©”ë¼ ìœ„ì¹˜ ì—…ë°ì´íŠ¸
         Vector3 position = target.position - (rotation * Vector3.forward * currentZoom);
         position.y = position.y + targetOffsetY;
         position.z = position.z + targetOffsetZ;

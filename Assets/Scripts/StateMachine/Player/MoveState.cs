@@ -32,7 +32,7 @@ public class MoveState : BaseState
     {
         player.GetAnimator().SafeSetAnimaion(StringDefine.RUN_ANI_HASH, false);
         Debug.Log($"Exit Move");
-        player.GetAnimator().SafeSetAnimaion(StringDefine.MOVESPEED_ANI_HASH, 0);
+        player.GetAnimator().SafeSetAnimaion(StringDefine.MOVESPEED_ANI_HASH, 0f);
     }
 
     private void MovePlayer()
@@ -65,7 +65,7 @@ public class MoveState : BaseState
 
         Vector3 movement = (cameraForward * vertical + cameraRight * horizontal).normalized;
 
-        // Ä³¸¯ÅÍ È¸Àü Ã³¸® (¹æÇâ ÀüÈ¯)
+        // ìºë¦­í„° íšŒì „ ì²˜ë¦¬ (ë°©í–¥ ì „í™˜)
         if (movement.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg;

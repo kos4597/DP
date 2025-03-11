@@ -23,7 +23,6 @@ public class MonsterAttackState : BaseState
 
     public override void OnStateExit()
     {
-        monster.GetComponent<Animator>().SafeSetAnimaion(StringDefine.MONSTER_ATTACK_ANI_HASH, false);
         cancellationToken.Cancel();
         cancellationToken.Dispose();
     }
@@ -32,10 +31,15 @@ public class MonsterAttackState : BaseState
     {
         while(monster.CheckPlayerAttackRange())
         {
-            monster.GetComponent<Animator>().SafeSetAnimaion(StringDefine.MONSTER_ATTACK_ANI_HASH, true);
+            monster.GetComponent<Animator>().SafeSetAnimaion(StringDefine.MONSTER_ATTACK_ANI_HASH);
+
+            if(monster.TrackingTargetTr.tag.Equals("Player"))
+            {
+                monster.TrackingTargetTr.GetComponent<Player>().Hit(10);
+            }
+
             Debug.LogWarning("Attack");
             await UniTask.Delay(monster.MonsterSO.MonsterData.AttackSpeed, cancellationToken: token.Token);
-            monster.GetComponent<Animator>().SafeSetAnimaion(StringDefine.MONSTER_ATTACK_ANI_HASH, false);
         }
     }
 }

@@ -9,6 +9,7 @@ public class TrackingState : BaseState
     public override void OnStateEnter()
     {
         monster.GetComponent<Animator>().SafeSetAnimaion(StringDefine.TRACKING_ANI_HASH, true);
+        trackingTime = 0f;
     }
 
     public override void OnStateUpdate()

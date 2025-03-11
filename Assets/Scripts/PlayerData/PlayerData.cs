@@ -4,45 +4,45 @@ using UnityEngine;
 public class PlayerData
 {
     /// <summary>
-    /// ÇÁ·ÎÆÛÆ¼ »ç¿ëÇÒ ¶§
-    /// WalkSpeed {get { return walkSpeed; } }Çü½ÄÀ» »ç¿ëÇÏµç WalkSpeed => walkSpeed Çü½ÄÀ» »ç¿ëÇÏµç ÇÑ°¡Áö¸¸ »ç¿ëÇÒ °Í
-    /// ´Ù¸¥ ÄÚµå¸¦ º¸¸é { get; set; }À¸·Î »ç¿ëÇÏ´Â °÷µµ ÀÖ¾úÀ½
+    /// í”„ë¡œí¼í‹° ì‚¬ìš©í•  ë•Œ
+    /// WalkSpeed {get { return walkSpeed; } }í˜•ì‹ì„ ì‚¬ìš©í•˜ë“  WalkSpeed => walkSpeed í˜•ì‹ì„ ì‚¬ìš©í•˜ë“  í•œê°€ì§€ë§Œ ì‚¬ìš©í•  ê²ƒ
+    /// ë‹¤ë¥¸ ì½”ë“œë¥¼ ë³´ë©´ { get; set; }ìœ¼ë¡œ ì‚¬ìš©í•˜ëŠ” ê³³ë„ ìˆì—ˆìŒ
     /// </summary>
 
-    // ÀÌ·± Á¤º¸µéÀº Å×ÀÌºí·Î »©°Å³ª ½ºÅ©¸³ÅÍºí¿ÀºêÁ§Æ®·Î °ü¸®
+    // ì´ëŸ° ì •ë³´ë“¤ì€ í…Œì´ë¸”ë¡œ ë¹¼ê±°ë‚˜ ìŠ¤í¬ë¦½í„°ë¸”ì˜¤ë¸Œì íŠ¸ë¡œ ê´€ë¦¬
     [SerializeField]
-    private float walkSpeed = 2f; // °È±â ¼Óµµ
+    private float walkSpeed = 2f; // ê±·ê¸° ì†ë„
     public float WalkSpeed => walkSpeed;
     [SerializeField]
-    private float runSpeed = 4f; // ¶Ù±â ¼Óµµ
+    private float runSpeed = 8f; // ë›°ê¸° ì†ë„
     public float RunSpeed => runSpeed;
 
     [SerializeField]
-    private float turnSpeed = 10f; // È¸Àü ¼Óµµ
+    private float turnSpeed = 10f; // íšŒì „ ì†ë„
     public float TurnSpeed => turnSpeed;
 
     [SerializeField]
-    private float jumpForce = 5f; // Á¡ÇÁ Èû
+    private float jumpForce = 5f; // ì í”„ í˜
     public float JumpForce => jumpForce;
 
     [SerializeField]
-    private float verticalVelocity = 0f; // ¼öÁ÷ ¼Óµµ ÀúÀå
+    private float verticalVelocity = 0f; // ìˆ˜ì§ ì†ë„ ì €ì¥
     public float VerticalVelocity => verticalVelocity;
 
     [SerializeField]
-    private float gravity = -9.81f; // Áß·Â
+    private float gravity = -9.81f; // ì¤‘ë ¥
     public float Gravity => gravity;
 
     [SerializeField]
-    private float raycastDistance = 0.5f; // ¶¥ Ã¼Å©¿ë Raycast °Å¸®
+    private float raycastDistance = 0.5f; // ë•… ì²´í¬ìš© Raycast ê±°ë¦¬
     public float RaycastDistance => raycastDistance;
 
     [SerializeField]
-    private float heightOffset = -0.1f; // Ä³¸¯ÅÍ¿Í ÁöÇü °£ ¿©À¯ ³ôÀÌ
+    private float heightOffset = -0.1f; // ìºë¦­í„°ì™€ ì§€í˜• ê°„ ì—¬ìœ  ë†’ì´
     public float HeightOffset => heightOffset;
 
     [SerializeField]
-    private float attackDelayTime = 0.5f; // °ø°İ ÄŞº¸ ½Ã°£
+    private float attackDelayTime = 0.5f; // ê³µê²© ì½¤ë³´ ì‹œê°„
     public float AttackDelayTime => attackDelayTime;
 
 }

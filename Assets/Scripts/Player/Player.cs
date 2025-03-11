@@ -96,4 +96,9 @@ public class Player : MonoBehaviour
             velocity.y = 0;
         }
     }
+
+    public void Hit(int damage)
+    {
+        Debug.Log("HitPlayer" + damage);
+    }
 }
