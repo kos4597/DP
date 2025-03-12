@@ -45,7 +45,6 @@ public class Player : MonoBehaviour
 
         float inputMagnitude = new Vector2(horizontal, vertical).magnitude;
 
-        Debug.Log($"MoveInput: {inputMagnitude}");
         return inputMagnitude > 0f;
     }
 

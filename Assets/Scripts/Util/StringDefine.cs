@@ -25,5 +25,6 @@ public static class StringDefine
     public readonly static int TRACKING_ANI_HASH = Animator.StringToHash("Tracking");
     public readonly static int MONSTER_ATTACK_ANI_HASH = Animator.StringToHash("MonsterAttack");
     public readonly static int RUNAWAY_ANI_HASH = Animator.StringToHash("RunAway");
+    public readonly static string DEAD_ANI = "Dead";
     #endregion
 }

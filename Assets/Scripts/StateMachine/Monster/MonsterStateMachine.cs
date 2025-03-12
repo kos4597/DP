@@ -9,6 +9,7 @@ public enum MonsterStateType
     Tracking,
     Attack,
     RunAway,
+    Dead,
 
     Max,
 }
@@ -26,7 +27,8 @@ public class MonsterStateMachine : IStateMachine<MonsterStateType>
             { MonsterStateType.Patrol, new PatrolState(monster, this) },
             { MonsterStateType.Tracking, new TrackingState(monster, this) },
             { MonsterStateType.Attack, new MonsterAttackState(monster, this) },
-            { MonsterStateType.RunAway, new RunAwayState(monster, this) }
+            { MonsterStateType.RunAway, new RunAwayState(monster, this) },
+            { MonsterStateType.Dead, new DeadState(monster, this) }
         };
     }
 

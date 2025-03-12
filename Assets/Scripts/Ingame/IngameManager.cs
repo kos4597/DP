@@ -34,6 +34,14 @@ public class IngameManager : MonoBehaviour
         SpawnaMonster();
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            SpawnaMonster();
+        }
+    }
+
     private void SpawnPlayer()
     {
         player = Instantiate(playerGo, playerSpawnPoint.position, Quaternion.identity).GetComponent<Player>();

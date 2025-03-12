@@ -60,6 +60,14 @@ public static class Extensions
         return animator.GetFloat(hash);
     }
 
+    public static void SafePlayAnimation(this Animator animator, string name)
+    {
+        if (CheckFakeNull(animator))
+            return;
+
+        animator.Play(name);
+    }
+
     public static bool CheckFakeNull(this UnityEngine.Object obj)
     {
         return obj == null || obj.Equals(null);

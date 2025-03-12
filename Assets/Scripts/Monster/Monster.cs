@@ -23,10 +23,13 @@ public class Monster : MonoBehaviour
     private MonsterStateMachine stateMachine;
     private Vector3 velocity;
 
+    private double hp = 0;
+
 
     private void Awake()
     {
         Debug.Log("Monster Create");
+        hp = monsterSO.MonsterData.HP;
     }
     private void Start()
     {
@@ -43,6 +46,18 @@ public class Monster : MonoBehaviour
     public void HitMonster(int damage)
     {
         Debug.Log("Hit" + damage);
+        hp -= damage;
+
+        if(hp <= 0)
+        {
+            stateMachine.ChangeState(MonsterStateType.Dead);
+        }
+    }
+
+    public void Dead()
+    {
+        hp = 0;
+        Destroy(gameObject);
     }
 
     private void OnDrawGizmos()
