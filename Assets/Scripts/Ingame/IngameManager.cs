@@ -18,6 +18,8 @@ public class IngameManager : MonoBehaviour
     private Player player = null;
     private Monster monster = null;
 
+    public Dictionary<string ,SkillBase> skillSet = new Dictionary<string, SkillBase>();
+
     [NonSerialized]
     public List<Monster> monsterPool = new List<Monster>();
 
@@ -32,6 +34,7 @@ public class IngameManager : MonoBehaviour
     {
         SpawnPlayer();
         SpawnaMonster();
+        SetSkill();
     }
 
     private void Update()
@@ -42,15 +45,22 @@ public class IngameManager : MonoBehaviour
         }
     }
 
+    private void SetSkill()
+    {
+        skillSet.Add("1", new FireBallSkill());
+        skillSet.Add("2", new BulletSkill());
+        skillSet.Add("3", new ArrowSKill());
+    }
+
     private void SpawnPlayer()
     {
-        player = Instantiate(playerGo, playerSpawnPoint.position, Quaternion.identity).GetComponent<Player>();
+        player = ResourceManager.CreateGameObject(StringDefine.PLAYER_PREFAB, playerSpawnPoint.position, Quaternion.identity).GetComponent<Player>();
         SetCameraTarget(player.transform);
     }
 
     private void SpawnaMonster()
     {
-        monster = Instantiate(monsterGo, monsterSpawnPoint.position, Quaternion.identity).GetComponent<Monster>();
+        monster = ResourceManager.CreateGameObject(StringDefine.MONSTER_PREFAB, monsterSpawnPoint.position, Quaternion.identity).GetComponent<Monster>();
 
         monster.SetSpawnPoint(monsterSpawnPoint);
         monster.SetTargetPlayer(player.transform);

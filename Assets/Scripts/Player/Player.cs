@@ -53,6 +53,11 @@ public class Player : MonoBehaviour
         return Input.GetMouseButtonDown(0);
     }
 
+    public bool CheckSkill()
+    {
+        return Input.anyKeyDown && IngameManager.Instance.skillSet.ContainsKey(Input.inputString);
+    }
+
     public void OnEnableWeaponCollision()
     {
         weapon.GetComponent<SphereCollider>().enabled = true;

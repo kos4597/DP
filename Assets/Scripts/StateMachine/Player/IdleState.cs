@@ -15,9 +15,15 @@ public class IdleState : BaseState
         {
             playerStateMachine.ChangeState(PlayerStateType.Attack);
         }
+
         else if (player.CheckMoveInput())
         {
             playerStateMachine.ChangeState(PlayerStateType.Move);
+        }
+
+        else if(player.CheckSkill())
+        {
+            playerStateMachine.ChangeState(PlayerStateType.Skill);
         }
     }
 

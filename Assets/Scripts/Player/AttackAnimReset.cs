@@ -9,7 +9,10 @@ public class AttackAnimReset : StateMachineBehaviour
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.ResetTrigger(triggerName);
-        animator.SetInteger(stackTriggerName, -1);
+        if(string.IsNullOrEmpty(triggerName) == false)
+            animator.ResetTrigger(triggerName);
+
+        if(string.IsNullOrEmpty(stackTriggerName) == false)
+            animator.SetInteger(stackTriggerName, -1);
     }
 }

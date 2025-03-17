@@ -14,6 +14,8 @@ public static class StringDefine
     public readonly static int JUMP_ANI_HASH = Animator.StringToHash("Jump");
     public readonly static int ATTACK_ANI_HASH = Animator.StringToHash("Attack");
     public readonly static int ATTACKSTACK_ANI_HASH = Animator.StringToHash("AttackStack");
+    public readonly static int SKILL_ANI_HASH = Animator.StringToHash("Skill");
+
     public readonly static string COMBOATTACK_01_ANI = "Attack1";
     public readonly static string COMBOATTACK_02_ANI = "Attack2";
     public readonly static string COMBOATTACK_03_ANI = "Attack3";
@@ -26,5 +28,10 @@ public static class StringDefine
     public readonly static int MONSTER_ATTACK_ANI_HASH = Animator.StringToHash("MonsterAttack");
     public readonly static int RUNAWAY_ANI_HASH = Animator.StringToHash("RunAway");
     public readonly static string DEAD_ANI = "Dead";
+    #endregion
+
+    #region PrefabName
+    public readonly static string PLAYER_PREFAB = "Prefabs/Player";
+    public readonly static string MONSTER_PREFAB = "Prefabs/Monster";
     #endregion
 }

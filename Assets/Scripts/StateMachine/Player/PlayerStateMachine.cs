@@ -8,6 +8,7 @@ public enum PlayerStateType
     Idle,
     Move,
     Attack,
+    Skill,
 
     Max,
 }
@@ -23,7 +24,8 @@ public class PlayerStateMachine : IStateMachine<PlayerStateType>
         {
             { PlayerStateType.Idle, new IdleState(player, this) },
             { PlayerStateType.Move, new MoveState(player, this) },
-            { PlayerStateType.Attack, new AttackState(player, this) }
+            { PlayerStateType.Attack, new AttackState(player, this) },
+            { PlayerStateType.Skill, new SkillState(player,this) }
         };
     }
 
