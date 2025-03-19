@@ -8,6 +8,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Weapon weapon = null;
     [SerializeField]
+    private Transform skillTr = null;
+    public Transform SkillTr => skillTr;
+
+    [SerializeField]
     private CharacterController controller = null;
     public CharacterController Controller => controller;
 

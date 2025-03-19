@@ -720,6 +720,7 @@ MonoBehaviour:
   playerSpawnPoint: {fileID: 687349083}
   monsterGo: {fileID: 9137032837993464747, guid: 4534b9cc6330aed499be54b02abf5283, type: 3}
   monsterSpawnPoint: {fileID: 776082877}
+  skillSO: {fileID: 11400000, guid: 968770a2fade8ba4f8f5f6b12e05542e, type: 2}
 --- !u!4 &2146556982
 Transform:
   m_ObjectHideFlags: 0

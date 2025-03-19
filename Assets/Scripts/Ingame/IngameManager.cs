@@ -18,7 +18,9 @@ public class IngameManager : MonoBehaviour
     private Player player = null;
     private Monster monster = null;
 
-    public Dictionary<string ,SkillBase> skillSet = new Dictionary<string, SkillBase>();
+    [SerializeField]
+    private SkillScriptableObj skillSO = null;
+    public Dictionary<string , SkillData> skillSet = new Dictionary<string, SkillData>();
 
     [NonSerialized]
     public List<Monster> monsterPool = new List<Monster>();
@@ -47,9 +49,10 @@ public class IngameManager : MonoBehaviour
 
     private void SetSkill()
     {
-        skillSet.Add("1", new FireBallSkill());
-        skillSet.Add("2", new BulletSkill());
-        skillSet.Add("3", new ArrowSKill());
+        for(int i = 0; i < skillSO.SkillDataBase.Length; i++)
+        {
+            skillSet.Add($"{i+1}", skillSO.SkillDataBase[i]);
+        }
     }
 
     private void SpawnPlayer()

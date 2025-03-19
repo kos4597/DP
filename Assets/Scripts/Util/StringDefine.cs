@@ -34,4 +34,8 @@ public static class StringDefine
     public readonly static string PLAYER_PREFAB = "Prefabs/Player";
     public readonly static string MONSTER_PREFAB = "Prefabs/Monster";
     #endregion
+
+    #region ResourcePath
+    public readonly static string SKILL_FOLDER_PATH = "Prefabs/Skill";
+    #endregion
 }

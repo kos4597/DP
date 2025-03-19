@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fbc324f99e24334c911da351826c99d, type: 3}
+  m_Name: SkillData
+  m_EditorClassIdentifier: 
+  skillDataBase:
+  - skillName: FireBall
+    damage: 10
+    coolTime: 5
+    resourceName: FireBall
+  - skillName: SwordBeam
+    damage: 30
+    coolTime: 15
+    resourceName: SwordBeam
+  - skillName: WaveBullet
+    damage: 30
+    coolTime: 15
+    resourceName: WaveBullet
+  - skillName: ArrowBullet
+    damage: 20
+    coolTime: 10
+    resourceName: ArrowBullet
