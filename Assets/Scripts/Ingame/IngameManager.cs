@@ -68,6 +68,7 @@ public class IngameManager : MonoBehaviour
         monster.SetSpawnPoint(monsterSpawnPoint);
         monster.SetTargetPlayer(player.transform);
 
+        monsterPool.Add(monster);
     }
 
     private void SetCameraTarget(Transform tr)

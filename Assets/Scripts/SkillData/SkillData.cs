@@ -17,4 +17,8 @@ public class SkillData
     [SerializeField]
     private string resourceName = string.Empty; // 로드할 프리팹명
     public string ResourceName => resourceName;
+
+    [SerializeField]
+    private float moveTime = 5f; // 스킬 날아가는 속도
+    public float MoveTime => moveTime;
 }

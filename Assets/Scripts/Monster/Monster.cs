@@ -57,6 +57,7 @@ public class Monster : MonoBehaviour
     public void Dead()
     {
         hp = 0;
+        IngameManager.Instance.monsterPool.Remove(this);
         Destroy(gameObject);
     }
 
