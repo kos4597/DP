@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
 
     private PlayerStateMachine stateMachine;
 
+    public SkillData selectedSkill { get; private set; }
+
     private Vector3 velocity;
 
     public bool AttackAniEndFlag { get; private set; }
@@ -59,7 +61,22 @@ public class Player : MonoBehaviour
 
     public bool CheckSkill()
     {
-        return Input.anyKeyDown && IngameManager.Instance.skillSet.ContainsKey(Input.inputString);
+        if (Input.anyKeyDown && IngameManager.Instance.skillSet.ContainsKey(Input.inputString))
+        {
+            SelectSkill();
+            return true;
+        }
+
+        return false;
+    }
+
+    public void SelectSkill()
+    {
+        IngameManager.Instance.skillSet.TryGetValue(Input.inputString, out var skill);
+        if(skill != null)
+        {
+            selectedSkill = skill;
+        }
     }
 
     public void OnEnableWeaponCollision()

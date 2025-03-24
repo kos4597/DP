@@ -19,7 +19,7 @@ public class SkillState : BaseState
 
     private void CrateSkill()
     {
-        IngameManager.Instance.skillSet.TryGetValue("1", out SkillData skillData);
+        SkillData skillData = player.selectedSkill;
 
         if (skillData == null)
             return;
