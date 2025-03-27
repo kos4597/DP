@@ -70,8 +70,6 @@ public class Monster : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, MonsterSO.MonsterData.AttackRange);
     }
 
-
-
     public bool CheckPlayerInRange()
     {
         if (TrackingTargetTr == null) 

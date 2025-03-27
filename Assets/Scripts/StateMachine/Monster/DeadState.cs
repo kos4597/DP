@@ -15,7 +15,7 @@ public class DeadState : BaseState
     {
         DeadAniTime += Time.deltaTime;
 
-        if(DeadAniTime > 3f)
+        if(DeadAniTime > 1f)
         {
             monster.Dead();
         }
