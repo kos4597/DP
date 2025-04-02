@@ -34,9 +34,9 @@ public class IngameManager : MonoBehaviour
 
     private void Start()
     {
+        SetSkill();
         SpawnPlayer();
         SpawnaMonster();
-        SetSkill();
     }
 
     private void Update()
