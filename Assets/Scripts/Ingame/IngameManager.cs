@@ -30,11 +30,11 @@ public class IngameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        SetSkill();
     }
 
     private void Start()
     {
-        SetSkill();
         SpawnPlayer();
         SpawnaMonster();
     }
