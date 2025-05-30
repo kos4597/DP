@@ -40,15 +40,6 @@ public class TrackingState : BaseState
 
     private void Tracking()
     {
-        Vector3 direction = (monster.TrackingTargetTr.position - monster.transform.position).normalized;
-        direction.y = 0;
-
-        if (direction != Vector3.zero)
-        {
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            monster.transform.rotation = Quaternion.Slerp(monster.transform.rotation, lookRotation, monster.MonsterSO.MonsterData.RotationSpeed * Time.deltaTime);
-        }
-
-        monster.Controller.Move(direction * monster.MonsterSO.MonsterData.MoveSpeed * Time.deltaTime);
+        monster.Agent.SetDestination(monster.TrackingTargetTr.position);       
     }
 }

@@ -1,5 +1,6 @@
 using System.Threading;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Player : MonoBehaviour
 {
@@ -11,9 +12,7 @@ public class Player : MonoBehaviour
     private Transform skillTr = null;
     public Transform SkillTr => skillTr;
 
-    [SerializeField]
-    private CharacterController controller = null;
-    public CharacterController Controller => controller;
+    public NavMeshAgent Agent { get; private set; }
 
     [SerializeField]
     private PlayerScriptableObj playerSO;
@@ -30,6 +29,8 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         Debug.Log("Player Create");
+        Agent = GetComponent<NavMeshAgent>();
+        Agent.speed = PlayerSO.PlayerData.WalkSpeed;
     }
 
     private void Start()
@@ -40,7 +41,6 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        ApplyGravity();
         stateMachine?.UpdateState();
     }
 
@@ -108,18 +108,6 @@ public class Player : MonoBehaviour
     public void AttackEnd(bool isEnd)
     {
         AttackAniEndFlag = isEnd;
-    }
-    private void ApplyGravity()
-    {
-        if (!controller.isGrounded)
-        {
-            velocity.y += playerSO.PlayerData.Gravity * Time.deltaTime * 5f;
-            controller.Move(velocity * Time.deltaTime);
-        }
-        else
-        {
-            velocity.y = 0;
-        }
     }
 
     public void Hit(int damage)

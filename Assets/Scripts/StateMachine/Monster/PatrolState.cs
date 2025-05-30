@@ -33,20 +33,10 @@ public class PatrolState : BaseState
 
     private void Patrol()
     {
-        Vector3 direction = (targetPosition - monster.transform.position).normalized;
-        direction.y = 0;
+        monster.Agent.SetDestination(targetPosition);
 
-        if (direction != Vector3.zero)
+        if (Vector3.Distance(monster.transform.position, targetPosition) <= monster.Agent.stoppingDistance)
         {
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            monster.transform.rotation = Quaternion.Slerp(monster.transform.rotation, lookRotation, monster.MonsterSO.MonsterData.RotationSpeed * Time.deltaTime);
-        }
-
-        monster.Controller.Move(direction * monster.MonsterSO.MonsterData.MoveSpeed * Time.deltaTime);
-
-        if (Vector3.Distance(monster.transform.position, targetPosition) < 2f)
-        {
-            monster.Controller.Move(Vector3.zero);
             monsterStateMachine.ChangeState(MonsterStateType.Idle);
         }
     }

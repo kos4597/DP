@@ -30,16 +30,7 @@ public class RunAwayState : BaseState
 
     private void RunAway()
     {
-        Vector3 direction = (targetPosition - monster.transform.position).normalized;
-        direction.y = 0;
-
-        if (direction != Vector3.zero)
-        {
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            monster.transform.rotation = Quaternion.Slerp(monster.transform.rotation, lookRotation, monster.MonsterSO.MonsterData.RotationSpeed * Time.deltaTime);
-        }
-
-        characterController.Move(direction * monster.MonsterSO.MonsterData.MoveSpeed * Time.deltaTime);
+        monster.Agent.SetDestination(targetPosition);
     }
 
     public override void OnStateExit()

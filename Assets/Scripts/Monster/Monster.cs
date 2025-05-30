@@ -1,16 +1,13 @@
 using System;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Monster : MonoBehaviour
 {
     [SerializeField]
     private Animator animator = null;
-    [SerializeField]
-    private CharacterController controller = null;
-
-    public CharacterController Controller => controller;
-
+    public NavMeshAgent Agent {  get; private set; }
     public Transform SpawnPoint { get; private set; }
 
 
@@ -29,7 +26,8 @@ public class Monster : MonoBehaviour
     private void Awake()
     {
         Debug.Log("Monster Create");
-        hp = monsterSO.MonsterData.HP;
+        Agent = GetComponent<NavMeshAgent>();
+        InitMonsterData();
     }
     private void Start()
     {
@@ -39,8 +37,13 @@ public class Monster : MonoBehaviour
 
     private void Update()
     {
-        ApplyGravity();
         stateMachine?.UpdateState();
+    }
+
+    private void InitMonsterData()
+    {
+        hp = monsterSO.MonsterData.HP;
+        Agent.speed = MonsterSO.MonsterData.MoveSpeed;
     }
 
     public void HitMonster(int damage)
@@ -90,7 +93,8 @@ public class Monster : MonoBehaviour
 
     public bool CheckRunAwayEnd()
     {
-        float distance = Vector3.Distance(transform.position, SpawnPoint.position);
+        Vector3 temp = new Vector3(SpawnPoint.position.x, transform.position.y, SpawnPoint.position.z);
+        float distance = Vector3.Distance(transform.position, temp);
         return distance <= 2f;
     }
 
@@ -102,18 +106,5 @@ public class Monster : MonoBehaviour
     public void SetSpawnPoint(Transform tr)
     {
         SpawnPoint = tr;
-    }
-
-    private void ApplyGravity()
-    {
-        if (!controller.isGrounded)
-        {
-            velocity.y += MonsterSO.MonsterData.Gravity * Time.deltaTime * 5f;
-            controller.Move(velocity * Time.deltaTime);
-        }
-        else
-        {
-            velocity.y = 0;
-        }
     }
 }
